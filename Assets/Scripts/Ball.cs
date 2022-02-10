@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private bool stuck { get; set; } = true;
-
+    public bool stuck { get; set; } = false;
+    public float movementSpeed = 200.0f;
+    public float startingAngleRange = 45.0f;
+    public GameObject paddle;
     private Rigidbody2D ballBody;
-    private CircleCollider2D ballCollider;
-
-    private Paddle paddle;
-    private GameManager gameManager;
+    private Rigidbody2D paddleBody;
 
     // Start is called before the first frame update
     void Start()
     {
         ballBody = GetComponent<Rigidbody2D>();
-        ballCollider = GetComponent<CircleCollider2D>();
+        paddleBody = paddle.GetComponent<Rigidbody2D>();
 
-        paddle = FindObjectOfType<Paddle>();
-        gameManager = FindObjectOfType<GameManager>();
+        launchBall();
     }
 
     // Update is called once per frame
@@ -28,28 +26,26 @@ public class Ball : MonoBehaviour
 
     }
 
-
     void FixedUpdate()
     {
-        
-        /*if (gameManager.GameBegun)
-        {
-            stuck = false;
-        }
-        else
-        {
-            followPaddlePosition();
-        }*/
 
         // Do not update ball if should not move
         if (stuck)
         {
-            return;
+            followPaddlePosition();
         }
     }
 
+    // Quick way to get ball to follow paddle. Has an amusing wobble to it :)
     private void followPaddlePosition()
     {
-        transform.position = paddle.Position;
+        ballBody.velocity = paddleBody.velocity;
+    }
+
+    private void launchBall()
+    { 
+        float randAngle = Random.Range(-startingAngleRange, startingAngleRange);
+        Quaternion rotation = Quaternion.Euler(0, 0, randAngle);
+        ballBody.velocity = rotation * Vector2.down * movementSpeed;
     }
 }

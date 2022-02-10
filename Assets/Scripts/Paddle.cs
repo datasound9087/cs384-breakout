@@ -4,18 +4,9 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
-    public float movementSpeed = 5.0f;
-    private float velocity = 0.0f;
-
+    public float movementSpeed = 400.0f;
+    private float inputVelocity = 0.0f;
     private Rigidbody2D paddleBody;
-
-    public Vector3 Position
-    {
-        get
-        {
-            return transform.position;
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,12 +17,22 @@ public class Paddle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        velocity = Input.GetAxisRaw("Horizontal");
+        inputVelocity = Input.GetAxisRaw("Horizontal");
     }
 
     void FixedUpdate()
     {
-        float newX = transform.position.x + (velocity * movementSpeed) * Time.fixedDeltaTime;
-        transform.position = new Vector3(newX, transform.position.y, 0);
+        // Updating position directly messes with box2d collion detection, creating overlaps
+        // therefore, update velocities instead to control movement
+        float newX = inputVelocity * movementSpeed * Time.fixedDeltaTime;
+        paddleBody.velocity = new Vector2(newX, 0);
+    }
+
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Border")
+        {
+            inputVelocity *= 0.0f;
+        }
     }
 }
