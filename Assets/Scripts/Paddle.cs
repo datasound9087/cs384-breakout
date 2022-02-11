@@ -6,12 +6,16 @@ public class Paddle : MonoBehaviour
 {
     public float movementSpeed = 400.0f;
     private float inputVelocity = 0.0f;
+    public float InputVelocity { get { return inputVelocity; }}
     private Rigidbody2D paddleBody;
+
+    private Vector3 startPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         paddleBody = GetComponent<Rigidbody2D>();
+        startPosition = paddleBody.position;
     }
 
     // Update is called once per frame
@@ -28,11 +32,16 @@ public class Paddle : MonoBehaviour
         paddleBody.velocity = new Vector2(newX, 0);
     }
 
-    public void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Border")
         {
             inputVelocity *= 0.0f;
         }
+    }
+
+    public void Reset()
+    {
+        paddleBody.position = startPosition;
     }
 }

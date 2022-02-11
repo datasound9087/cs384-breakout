@@ -7,6 +7,9 @@ TagManager:
   - Paddle
   - Ball
   - Border
+  - DeathArea
+  - BrickArea
+  - Brick
   layers:
   - Default
   - TransparentFX

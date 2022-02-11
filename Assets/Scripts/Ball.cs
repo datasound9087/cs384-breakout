@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public bool stuck { get; set; } = false;
     public float movementSpeed = 200.0f;
     public float startingAngleRange = 45.0f;
-    public GameObject paddle;
+
+    private Paddle paddle;
     private Rigidbody2D ballBody;
     private Rigidbody2D paddleBody;
+    private Vector3 startPosition;
+    private bool stuck = true;
+    
+    public bool dead { get; private set; } = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        paddle = FindObjectOfType<Paddle>();
+
         ballBody = GetComponent<Rigidbody2D>();
         paddleBody = paddle.GetComponent<Rigidbody2D>();
 
-        launchBall();
+        startPosition = ballBody.position;
     }
 
     // Update is called once per frame
@@ -28,11 +34,18 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate()
     {
-
         // Do not update ball if should not move
         if (stuck)
         {
             followPaddlePosition();
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "DeathArea")
+        {
+            dead = true;
         }
     }
 
@@ -42,10 +55,24 @@ public class Ball : MonoBehaviour
         ballBody.velocity = paddleBody.velocity;
     }
 
-    private void launchBall()
-    { 
-        float randAngle = Random.Range(-startingAngleRange, startingAngleRange);
+    public void Launch()
+    {   
+        // If paddle moving on launch - narrow random direction to moving side to feel more predictable
+        // Moving Left
+        float startRange =  paddle.InputVelocity > 0 ? 0 : -startingAngleRange;
+        float endRange = paddle.InputVelocity < 0 ? 0 : startingAngleRange;
+
+        float randAngle = Random.Range(startRange, endRange);
         Quaternion rotation = Quaternion.Euler(0, 0, randAngle);
         ballBody.velocity = rotation * Vector2.down * movementSpeed;
+        stuck = false;
+    }
+
+    public void Reset()
+    {
+        ballBody.velocity = Vector2.zero;
+        ballBody.position = startPosition;
+        stuck = true;
+        dead = false;
     }
 }
