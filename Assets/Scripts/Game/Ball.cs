@@ -38,6 +38,12 @@ public class Ball : MonoBehaviour
         if (stuck)
         {
             followPaddlePosition();
+        } else
+        {
+            if (ballBody.velocity.y == 0.0f || ballBody.velocity.x == 0.0f)
+            {
+                Debug.Log("broke");
+            }
         }
     }
 

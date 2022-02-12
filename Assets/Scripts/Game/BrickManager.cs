@@ -6,15 +6,16 @@ public class BrickManager : MonoBehaviour
 {
     // Brick prefab asset
     public GameObject brick;
-    public float wallWorldAreaRangeX = 5.0f;
-    public float wallWorldAreaRangeY = 5.0f;
-    public int wallWidth = 10;
-    public int wallHeight = 10;
-    private int remainingBricks = 100;
+    public float wallWorldAreaRangeX;
+    public float wallWorldAreaRangeY;
+    public int wallWidth;
+    public int wallHeight;
+    public float gapBetweenBricks;
+    private float remainingBricks;
 
-    private Brick[,] bricks;
     void Start()
     {
+        remainingBricks = wallWidth * wallHeight;
         generateWall();
     }
 
@@ -39,14 +40,15 @@ public class BrickManager : MonoBehaviour
 
     private void generateWall()
     {
-        bricks = new Brick[wallWidth, wallHeight];
-
         // Calculate size of bricks relative to area
         float brickWorldSizeX = 2.0f * wallWorldAreaRangeX / (float)wallWidth;
         float brickWorldSizeY = 2.0f * wallWorldAreaRangeY / (float)wallHeight;
         
+        //get half of brick size for positioning
+        float brickWorldSizeXHalf = brickWorldSizeX / 2.0f;
+
         // Start at top left in world coords to spawn bricks
-        float startX = -wallWorldAreaRangeX;
+        float startX = -wallWorldAreaRangeX - brickWorldSizeXHalf;
         float startY = -wallWorldAreaRangeY;
 
         // Initial scale of brick is 1
@@ -65,12 +67,12 @@ public class BrickManager : MonoBehaviour
             Vector3 pos = new Vector3(startX, startY, 0);
             Brick go = Instantiate(brick, pos, Quaternion.identity, this.transform).GetComponent<Brick>();
             go.transform.localScale = brickScale2;
-            startX += brickWorldSizeX + 0.1f;
+            startX += brickWorldSizeX + gapBetweenBricks;
 
             if (i > 0 && i % wallWidth == 0)
             {
-                startY += brickWorldSizeY + 0.1f;
-                startX = -wallWorldAreaRangeX;
+                startY += brickWorldSizeY + gapBetweenBricks;
+                startX = -wallWorldAreaRangeX - brickWorldSizeXHalf;
             }
         }
     }

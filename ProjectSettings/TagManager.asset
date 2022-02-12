@@ -10,6 +10,8 @@ TagManager:
   - DeathArea
   - BrickArea
   - Brick
+  - Score
+  - Lives
   layers:
   - Default
   - TransparentFX

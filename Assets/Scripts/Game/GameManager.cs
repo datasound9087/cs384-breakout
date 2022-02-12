@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private Paddle paddle;
     private bool gameBegun = false;
 
+    private int lives = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,13 +30,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (ball.dead)
         {
+            lives--;
             paddle.Reset();
             ball.Reset();
             gameBegun = false;
         }
+    }
+
+    public int GetLives()
+    {
+        return lives;
     }
 }

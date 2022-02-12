@@ -8,10 +8,12 @@ public class Brick : MonoBehaviour
     public bool unbreakable { get; set; } = false;
 
     BrickManager brickManager;
+    ScoreManager scoreManager;
 
     void Start()
     {
         brickManager = FindObjectOfType<BrickManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -21,6 +23,7 @@ public class Brick : MonoBehaviour
             if (!unbreakable && durability == 0)
             {
                 brickManager.BrickDestroyed();
+                scoreManager.IncrementScore();
                 Destroy(this.gameObject);
             }
         }
