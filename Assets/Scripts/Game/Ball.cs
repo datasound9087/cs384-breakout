@@ -13,7 +13,7 @@ public class Ball : MonoBehaviour
     private Vector3 startPosition;
     private bool stuck = true;
     
-    public bool dead { get; private set; } = false;
+    public bool Dead { get; private set; } = false;
 
     // Start is called before the first frame update
     void Start()
@@ -51,12 +51,12 @@ public class Ball : MonoBehaviour
     {
         if (col.gameObject.tag == "DeathArea")
         {
-            dead = true;
+            Dead = true;
         }
     }
 
-    // Quick way to get ball to follow paddle. Has an amusing wobble to it :)
     private void followPaddlePosition()
+    // Quick way to get ball to follow paddle. Has an amusing wobble to it :)
     {
         ballBody.velocity = paddleBody.velocity;
     }
@@ -79,6 +79,6 @@ public class Ball : MonoBehaviour
         ballBody.velocity = Vector2.zero;
         ballBody.position = startPosition;
         stuck = true;
-        dead = false;
+        Dead = false;
     }
 }

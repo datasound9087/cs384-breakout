@@ -11,11 +11,10 @@ public class BrickManager : MonoBehaviour
     public int wallWidth;
     public int wallHeight;
     public float gapBetweenBricks;
-    private float remainingBricks;
+    private int remainingBricks;
 
     void Start()
     {
-        remainingBricks = wallWidth * wallHeight;
         generateWall();
     }
 
@@ -25,21 +24,20 @@ public class BrickManager : MonoBehaviour
         
     }
 
-    void FixedUpdate()
-    {
-        if (remainingBricks == 0)
-        {
-            // WOOOOOP
-        }
-    }
-
     public void BrickDestroyed()
     {
         remainingBricks--;
     }
 
+    public int RemaingBricks()
+    {
+        return remainingBricks;
+    }
+
     private void generateWall()
     {
+        remainingBricks = wallWidth * wallHeight;
+
         // Calculate size of bricks relative to area
         float brickWorldSizeX = 2.0f * wallWorldAreaRangeX / (float)wallWidth;
         float brickWorldSizeY = 2.0f * wallWorldAreaRangeY / (float)wallHeight;
@@ -75,5 +73,10 @@ public class BrickManager : MonoBehaviour
                 startX = -wallWorldAreaRangeX - brickWorldSizeXHalf;
             }
         }
+    }
+
+    public void Reset()
+    {
+        generateWall();
     }
 }

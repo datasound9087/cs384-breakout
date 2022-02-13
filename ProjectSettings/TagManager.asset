@@ -12,6 +12,12 @@ TagManager:
   - Brick
   - Score
   - Lives
+  - HighScore
+  - GamePanel
+  - PausePanel
+  - ResumeButton
+  - RestartButton
+  - QuitToMenuButton
   layers:
   - Default
   - TransparentFX
