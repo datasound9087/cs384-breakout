@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnPlayButtonClicked()
     {
-        SceneManager.LoadSceneAsync("Game");
+        SceneManager.LoadSceneAsync("PlayMenu");
     }
 
     public void OnOptionsButtonClicked()
