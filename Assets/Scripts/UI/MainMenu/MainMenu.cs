@@ -28,6 +28,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync("Game");
     }
 
+    public void OnOptionsButtonClicked()
+    {
+        SceneManager.LoadSceneAsync("OptionsMenu");
+    }
+
     public void OnQuitButtonClicked()
     {
         Application.Quit();
