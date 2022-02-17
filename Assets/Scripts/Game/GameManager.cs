@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
+    // Game settings
+    public GameSettings gameSettings;
     private BrickManager brickManager;
     private ScoreManager scoreManager;
     private Ball ball;

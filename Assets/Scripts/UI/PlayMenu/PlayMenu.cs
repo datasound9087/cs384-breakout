@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayMenu : MonoBehaviour
 {
+    public GameSettings gameSettings;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +20,13 @@ public class PlayMenu : MonoBehaviour
 
     public void OnLevelsButtonClicked()
     {
+        gameSettings.endlessMode = false;
         SceneManager.LoadSceneAsync("Game");
     }
 
     public void OnEndlessButtonClicked()
     {
+        gameSettings.endlessMode = true;
         SceneManager.LoadSceneAsync("Game");
     }
 

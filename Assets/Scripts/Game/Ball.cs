@@ -42,7 +42,7 @@ public class Ball : MonoBehaviour
         {
             if (ballBody.velocity.y == 0.0f || ballBody.velocity.x == 0.0f)
             {
-                Debug.Log("broke");
+                // TODO
             }
         }
     }

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System; // For Func delegate
 
 public class BrickManager : MonoBehaviour
 {
+    // Game settings to see if should be spawning levels or generating them
+    public GameSettings gameSettings;
     // Brick prefab asset
     public GameObject brick;
     public float wallWorldAreaRangeX;
@@ -11,17 +14,30 @@ public class BrickManager : MonoBehaviour
     public int wallWidth;
     public int wallHeight;
     public float gapBetweenBricks;
+
     private int remainingBricks;
+
+    private LevelManager levelManager;
 
     void Start()
     {
-        generateWall();
+        if (gameSettings.endlessMode)
+        {
+            remainingBricks = wallWidth * wallHeight;
+            generateBricks(generateWall, null);
+        } else
+        {
+            levelManager = new LevelManager("Level01");
+            wallWidth = levelManager.GetLevelWidth();
+            wallWidth = levelManager.GetLevelHeight();
+            remainingBricks = levelManager.GetNumberOfBreakableBricks();
+            generateBricks(generateLevel, null);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void BrickDestroyed()
@@ -34,10 +50,18 @@ public class BrickManager : MonoBehaviour
         return remainingBricks;
     }
 
-    private void generateWall()
+    private bool generateWall(int x, int y)
     {
-        remainingBricks = wallWidth * wallHeight;
+        return true;
+    }
 
+    private bool generateLevel(int x, int y)
+    {
+        return levelManager.CanPlaceBrickAt(x, y);
+    }
+
+    private void generateBricks(Func<int, int, bool> brickSpawnFunc, Action<Brick> initialiseBrickFunc)
+    {
         // Calculate size of bricks relative to area
         float brickWorldSizeX = 2.0f * wallWorldAreaRangeX / (float)wallWidth;
         float brickWorldSizeY = 2.0f * wallWorldAreaRangeY / (float)wallHeight;
@@ -60,23 +84,39 @@ public class BrickManager : MonoBehaviour
 
         Vector3 brickScale2 = new Vector3(xScale, yScale, 0);
 
-        for (int i = 1; i <= wallWidth * wallHeight; i++)
+        for (int y = 0; y < wallHeight; y++)
         {
-            Vector3 pos = new Vector3(startX, startY, 0);
-            Brick go = Instantiate(brick, pos, Quaternion.identity, this.transform).GetComponent<Brick>();
-            go.transform.localScale = brickScale2;
-            startX += brickWorldSizeX + gapBetweenBricks;
-
-            if (i > 0 && i % wallWidth == 0)
+            for (int x = 0; x < wallWidth; x++)
             {
-                startY += brickWorldSizeY + gapBetweenBricks;
-                startX = -wallWorldAreaRangeX - brickWorldSizeXHalf;
+                if (brickSpawnFunc(x, y))
+                {
+                    Vector3 pos = new Vector3(startX, startY, 0);
+                    Brick go = Instantiate(brick, pos, Quaternion.identity, this.transform).GetComponent<Brick>();
+                    go.transform.localScale = brickScale2;
+                    if (initialiseBrickFunc != null)
+                    {
+                        initialiseBrickFunc(go);
+                    }
+                }
+                startX += brickWorldSizeX + gapBetweenBricks;
             }
+            startY += brickWorldSizeY + gapBetweenBricks;
+            startX = -wallWorldAreaRangeX - brickWorldSizeXHalf;
         }
     }
-
     public void Reset()
     {
-        generateWall();
+        if (gameSettings.endlessMode)
+        {
+            remainingBricks = wallWidth * wallHeight;
+            generateBricks(generateWall, null);
+        } else
+        {
+            levelManager.NextLevel();
+            wallWidth = levelManager.GetLevelWidth();
+            wallWidth = levelManager.GetLevelHeight();
+            remainingBricks = levelManager.GetNumberOfBreakableBricks();
+            generateBricks(generateLevel, null);
+        }
     }
 }

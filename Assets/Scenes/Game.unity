@@ -1232,6 +1232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8b2bb8847495347bbc7a48fa0fa96e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSettings: {fileID: 11400000, guid: 976e380e36375d340b4dcf077376f4cf, type: 2}
 --- !u!114 &876542142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2454,6 +2455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8427d60aaa318504ea3c5e9ce24c0c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSettings: {fileID: 11400000, guid: 976e380e36375d340b4dcf077376f4cf, type: 2}
   brick: {fileID: 6977805065402185254, guid: 351ca1ebb52d17b4791dc255f7ea5897, type: 3}
   wallWorldAreaRangeX: 5
   wallWorldAreaRangeY: 2
