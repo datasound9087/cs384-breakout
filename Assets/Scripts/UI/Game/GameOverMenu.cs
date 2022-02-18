@@ -31,7 +31,7 @@ public class GameOverMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.GameOver() && gameManager.GetLives() > 0)
+        if (gameManager.GetLives() == 0)
         {
             gameOverPanel.SetActive(true);
             updateText();

@@ -43,7 +43,7 @@ public class LevelManager : MonoBehaviour
                 LoadLevelFromDisk(loadedLevel.nextLevel);
             }
         }
-        
+
         ClearLevel();
         LoadLevel();
     }
@@ -62,6 +62,7 @@ public class LevelManager : MonoBehaviour
         float val = Random.value;
         if  (val > BRICK_SPAWN_CHANCE)
         {
+            numBricksRemaining++;
             return true;
         }
 

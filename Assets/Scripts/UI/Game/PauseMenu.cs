@@ -15,7 +15,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.GameOver() && gameManager.GamePaused())
+        if (!gameManager.GameOver() && gameManager.GetLives() > 0 && gameManager.GamePaused())
         {
             pausePanel.SetActive(true);
         } else
