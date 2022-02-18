@@ -18,24 +18,13 @@ public class BrickSpawner : MonoBehaviour
     {
         levelManager = FindObjectOfType<LevelManager>();
     }
- 
-    public void GenerateBricks()
-    {
-        if (!gameSettings.endlessMode)
-        {
-            GenerateBricksImpl(levelManager.CanPlaceBrickForLevel, null);
-        } else
-        {
-            GenerateBricksImpl(levelManager.CanPlaceBrickForSeed, null);
-        }
-    }
-
+    
     /*
         Generate bricks into the world of the correct size and shape. 
         brickSpawnFunc - For a given position should a brick be spawned there
         initialiseBrickFunc - Optional function to do any other brick specific setup - ie durability/breakable.
     */
-    private void GenerateBricksImpl(Func<int, int, bool> brickSpawnFunc, Action<Brick> initialiseBrickFunc)
+    public void GenerateBricks(Func<int, int, bool> brickSpawnFunc, Action<Brick> initialiseBrickFunc)
     {
         // Calculate size of bricks relative to area
         float brickWorldSizeX = 2.0f * wallWorldAreaRangeX / (float)levelManager.GetLevelWidth();

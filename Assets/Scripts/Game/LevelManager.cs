@@ -124,8 +124,11 @@ public class LevelManager : MonoBehaviour
         if (gameSettings.endlessMode)
         {
             Random.InitState(levelSeed);
+            brickSpawner.GenerateBricks(this.CanPlaceBrickForSeed, null);
+        } else
+        {
+            brickSpawner.GenerateBricks(this.CanPlaceBrickForLevel, null);
         }
-        brickSpawner.GenerateBricks();
     }
 
     private void ClearLevel()
