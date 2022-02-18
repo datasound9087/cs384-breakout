@@ -6,22 +6,19 @@ public class GameManager : MonoBehaviour
 {
     // Game settings
     public GameSettings gameSettings;
-    private BrickManager brickManager;
     private ScoreManager scoreManager;
+    private LevelManager levelManager;
     private Ball ball;
     private Paddle paddle;
     private bool gameBegun = false;
-
     private static readonly int MAX_LIVES = 3;
     private int lives = MAX_LIVES;
     private bool gamePaused = false;
-    private bool gameFinished = false;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        brickManager = FindObjectOfType<BrickManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
+        levelManager = FindObjectOfType<LevelManager>();
         ball = FindObjectOfType<Ball>();
         paddle = FindObjectOfType<Paddle>();
     }
@@ -45,6 +42,11 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (lives == 0)
+        {
+            Pause();
+        }
+
         if (ball.Dead)
         {
             lives--;
@@ -64,9 +66,9 @@ public class GameManager : MonoBehaviour
         return gamePaused;
     }
 
-    public bool GameFinished()
+    public bool GameOver()
     {
-        return gameFinished;
+        return levelManager.LevelFinished();
     }
 
     private void handlePause()
@@ -97,9 +99,15 @@ public class GameManager : MonoBehaviour
         lives = MAX_LIVES;
         paddle.Reset();
         ball.Reset();
-        brickManager.Reset();
+        levelManager.ResetLevel();
 
         gameBegun = false;
         scoreManager.Reset();
+    }
+
+    public void NextLevel()
+    {
+        levelManager.NextLevel();
+        Restart();
     }
 }

@@ -7,14 +7,15 @@ public class Brick : MonoBehaviour
     public int durability { get; set; } = 1;
     public bool unbreakable { get; set; } = false;
 
-    BrickManager brickManager;
+    LevelManager levelManager;
     ScoreManager scoreManager;
 
-    void Start()
+    void Awake()
     {
-        brickManager = FindObjectOfType<BrickManager>();
+        levelManager = FindObjectOfType<LevelManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
     }
+    
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Ball")
@@ -22,7 +23,7 @@ public class Brick : MonoBehaviour
             durability--;
             if (!unbreakable && durability == 0)
             {
-                brickManager.BrickDestroyed();
+                levelManager.BrickDestroyed();
                 scoreManager.IncrementScore();
                 Destroy(this.gameObject);
             }

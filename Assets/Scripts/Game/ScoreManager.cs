@@ -7,16 +7,11 @@ public class ScoreManager : MonoBehaviour
     
     private int score;
     private int highScore;
-    void Start()
+
+    void Awake()
     {
         highScore = 0;
         Reset();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Reset()

@@ -10,7 +10,8 @@ public class ScoreCounter : MonoBehaviour
     
     // Cache score so don't update UI every frame - text rendering is slow
     private int cachedScore;
-    void Start()
+
+    void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
 
@@ -18,7 +19,6 @@ public class ScoreCounter : MonoBehaviour
         GetComponent<TextMeshProUGUI>().SetText(LIVES_TEXT + cachedScore);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (scoreManager.GetScore() != cachedScore)

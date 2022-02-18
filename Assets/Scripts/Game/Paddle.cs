@@ -11,8 +11,7 @@ public class Paddle : MonoBehaviour
 
     private Vector3 startPosition;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         paddleBody = GetComponent<Rigidbody2D>();
         startPosition = paddleBody.position;

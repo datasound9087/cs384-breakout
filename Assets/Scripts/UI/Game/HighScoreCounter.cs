@@ -10,7 +10,8 @@ public class HighScoreCounter : MonoBehaviour
     
     // Cache high score so don't update UI every frame - text rendering is slow
     private int cachedHighScore;
-    void Start()
+
+    void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
 
@@ -18,7 +19,6 @@ public class HighScoreCounter : MonoBehaviour
         GetComponent<TextMeshProUGUI>().SetText(LIVES_TEXT + cachedHighScore);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (scoreManager.GetHighScore() != cachedHighScore)

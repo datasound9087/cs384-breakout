@@ -14,40 +14,43 @@ public class LevelLoader
         if (loadedLevel != null)
         {
             // calculate number of bricks in level
-            calcNumberOfBricks(loadedLevel);
+            CalcNumberOfBricks(loadedLevel);
 
             // add row references for easier access into level data
-            addRowReferences(loadedLevel);
+            AddRowReferences(loadedLevel);
+
+            // Is this level at the end of the chain?
+            SetIsLevelAtEndOfChain(loadedLevel);
         }
 
         return loadedLevel;
     }
 
-    private static void calcNumberOfBricks(Level level)
+    private static void CalcNumberOfBricks(Level level)
     {
         int numBreakableBricks = 0;
 
-        numBreakableBricks += sumRow(level.levelRows.row1);
-        numBreakableBricks += sumRow(level.levelRows.row2);
-        numBreakableBricks += sumRow(level.levelRows.row3);
-        numBreakableBricks += sumRow(level.levelRows.row4);
-        numBreakableBricks += sumRow(level.levelRows.row5);
-        numBreakableBricks += sumRow(level.levelRows.row6);
-        numBreakableBricks += sumRow(level.levelRows.row7);
-        numBreakableBricks += sumRow(level.levelRows.row8);
-        numBreakableBricks += sumRow(level.levelRows.row9);
-        numBreakableBricks += sumRow(level.levelRows.row10);
-        numBreakableBricks += sumRow(level.levelRows.row11);
-        numBreakableBricks += sumRow(level.levelRows.row12);
-        numBreakableBricks += sumRow(level.levelRows.row13);
-        numBreakableBricks += sumRow(level.levelRows.row14);
-        numBreakableBricks += sumRow(level.levelRows.row15);
+        numBreakableBricks += SumRow(level.levelRows.row1);
+        numBreakableBricks += SumRow(level.levelRows.row2);
+        numBreakableBricks += SumRow(level.levelRows.row3);
+        numBreakableBricks += SumRow(level.levelRows.row4);
+        numBreakableBricks += SumRow(level.levelRows.row5);
+        numBreakableBricks += SumRow(level.levelRows.row6);
+        numBreakableBricks += SumRow(level.levelRows.row7);
+        numBreakableBricks += SumRow(level.levelRows.row8);
+        numBreakableBricks += SumRow(level.levelRows.row9);
+        numBreakableBricks += SumRow(level.levelRows.row10);
+        numBreakableBricks += SumRow(level.levelRows.row11);
+        numBreakableBricks += SumRow(level.levelRows.row12);
+        numBreakableBricks += SumRow(level.levelRows.row13);
+        numBreakableBricks += SumRow(level.levelRows.row14);
+        numBreakableBricks += SumRow(level.levelRows.row15);
 
         level.numBreakableBricks = numBreakableBricks;
     }
 
     // add row references for easier access into level data
-    private static int sumRow(List<int> row)
+    private static int SumRow(List<int> row)
     {
         int sum = 0;
         foreach (int r in row)
@@ -61,7 +64,7 @@ public class LevelLoader
         return sum;
     }
 
-    private static void addRowReferences(Level loadedLevel)
+    private static void AddRowReferences(Level loadedLevel)
     {
         loadedLevel.rowRefs = new List<int>[] {
             loadedLevel.levelRows.row1,
@@ -80,5 +83,10 @@ public class LevelLoader
             loadedLevel.levelRows.row14,
             loadedLevel.levelRows.row15
         };
+    }
+
+    private static void SetIsLevelAtEndOfChain(Level loadedLevel)
+    {
+        loadedLevel.endOfChain = string.IsNullOrEmpty(loadedLevel.nextLevel);
     }
 }

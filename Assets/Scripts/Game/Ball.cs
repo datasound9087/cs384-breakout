@@ -16,20 +16,13 @@ public class Ball : MonoBehaviour
     public bool Dead { get; private set; } = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         paddle = FindObjectOfType<Paddle>();
-
         ballBody = GetComponent<Rigidbody2D>();
         paddleBody = paddle.GetComponent<Rigidbody2D>();
 
         startPosition = ballBody.position;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void FixedUpdate()

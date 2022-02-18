@@ -7,15 +7,15 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pausePanel;
     private GameManager gameManager;
-    void Start()
+    
+    void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (gameManager.GamePaused())
+        if (!gameManager.GameOver() && gameManager.GamePaused())
         {
             pausePanel.SetActive(true);
         } else

@@ -19,4 +19,8 @@ public class Level
     // Row references to make indexing into level data easier
     [System.NonSerialized]
     public List<int>[] rowRefs;
+
+    // Is level at the end of the chain
+    [System.NonSerialized]
+    public bool endOfChain;
 }

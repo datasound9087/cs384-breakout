@@ -10,7 +10,8 @@ public class LivesCounter : MonoBehaviour
     
     // Cache lives so don't update UI every frame - text rendering is slow
     private int cachedLives;
-    void Start()
+    
+    void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
 
