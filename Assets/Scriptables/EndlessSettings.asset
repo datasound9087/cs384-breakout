@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cefe0c10fb4adc046a443bc68b4573cb, type: 3}
-  m_Name: GameSettings
+  m_Script: {fileID: 11500000, guid: 139e763e6a97b0c42baca0fc519aec26, type: 3}
+  m_Name: EndlessSettings
   m_EditorClassIdentifier: 
-  endlessMode: 1
   levelSeed: 0
   levelRound: 1

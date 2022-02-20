@@ -4,29 +4,52 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    public int durability { get; set; } = 1;
-    public bool unbreakable { get; set; } = false;
+    public BrickColours brickColours;
+    private bool unbreakable = false;
+    private int durability = 1;
 
-    LevelManager levelManager;
-    ScoreManager scoreManager;
+    private LevelManager levelManager;
+    private ScoreManager scoreManager;
+    private SpriteRenderer brickSprite;
 
     void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
+        brickSprite = GetComponent<SpriteRenderer>();
     }
     
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Ball")
         {
+            scoreManager.IncrementScore();
             durability--;
             if (!unbreakable && durability == 0)
             {
                 levelManager.BrickDestroyed();
-                scoreManager.IncrementScore();
                 Destroy(this.gameObject);
+            } else
+            {
+                UpdateColour();
             }
         }
+    }
+
+    public void setDurability(int durability)
+    {
+        this.durability = durability;
+        if (this.durability < 0)
+        {
+            unbreakable = true;
+        }
+
+        UpdateColour();
+    }
+
+    private void UpdateColour()
+    {
+        brickSprite.color = brickColours.GetColourForDurability(durability);
+        Debug.Log(brickSprite.color);
     }
 }

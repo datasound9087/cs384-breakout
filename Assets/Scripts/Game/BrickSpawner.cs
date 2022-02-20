@@ -24,7 +24,7 @@ public class BrickSpawner : MonoBehaviour
         brickSpawnFunc - For a given position should a brick be spawned there
         initialiseBrickFunc - Optional function to do any other brick specific setup - ie durability/breakable.
     */
-    public void GenerateBricks(Func<int, int, bool> brickSpawnFunc, Action<Brick> initialiseBrickFunc)
+    public void GenerateBricks(IBrickSpawning spawnRules)
     {
         // Calculate size of bricks relative to area
         float brickWorldSizeX = 2.0f * wallWorldAreaRangeX / (float)levelManager.GetLevelWidth();
@@ -52,15 +52,13 @@ public class BrickSpawner : MonoBehaviour
         {
             for (int x = 0; x < levelManager.GetLevelWidth(); x++)
             {
-                if (brickSpawnFunc(x, y))
+                if (spawnRules.OnPlace(x, y))
                 {
                     Vector3 pos = new Vector3(startX, startY, 0);
                     Brick go = Instantiate(brick, pos, Quaternion.identity, this.transform).GetComponent<Brick>();
                     go.transform.localScale = brickScale2;
-                    if (initialiseBrickFunc != null)
-                    {
-                        initialiseBrickFunc(go);
-                    }
+                    
+                    spawnRules.OnBrickInitialise(x, y, go);
                 }
                 startX += brickWorldSizeX + gapBetweenBricks;
             }

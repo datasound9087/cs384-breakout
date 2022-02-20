@@ -16,6 +16,9 @@ public class PlayMenu : MonoBehaviour
     public void OnEndlessButtonClicked()
     {
         gameSettings.endlessMode = true;
+        // Generate seed for level generation
+        gameSettings.endlessSettings.levelSeed = Random.Range(int.MinValue, int.MaxValue);
+
         SceneManager.LoadSceneAsync("Game");
     }
 

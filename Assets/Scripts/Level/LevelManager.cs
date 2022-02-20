@@ -8,12 +8,10 @@ public class LevelManager : MonoBehaviour
     public int levelWidth;
     public int levelHeight;
 
+    public int NumBricksRemaining { get; set; }
     private BrickSpawner brickSpawner;
     private string levelName;
-    private int numBricksRemaining;
     private Level loadedLevel;
-    private int levelSeed;
-    private static readonly float BRICK_SPAWN_CHANCE = 0.5f;
 
     void Awake()
     {
@@ -26,10 +24,6 @@ public class LevelManager : MonoBehaviour
         {
             LoadLevelFromDisk("Level01");
         } else
-        {
-            // Generate level seed
-            levelSeed = Random.Range(0, int.MaxValue);
-        }
 
         LoadLevel();
     }
@@ -47,32 +41,6 @@ public class LevelManager : MonoBehaviour
         ClearLevel();
         LoadLevel();
     }
-    public bool CanPlaceBrickForLevel(int x, int y)
-    {
-        if (x >= loadedLevel.width || y >= loadedLevel.height)
-        {
-            return false;
-        }
-
-        return loadedLevel.rowRefs[y][x] > 0;
-    }
-
-    public bool CanPlaceBrickForSeed(int x, int y)
-    {
-        float val = Random.value;
-        if  (val > BRICK_SPAWN_CHANCE)
-        {
-            numBricksRemaining++;
-            return true;
-        }
-
-        return false;
-    }
-
-    public int GetNumberOfBricksRemaining()
-    {
-        return numBricksRemaining;
-    }
 
     public int GetLevelWidth()
     {
@@ -84,18 +52,13 @@ public class LevelManager : MonoBehaviour
         return levelHeight;
     }
 
-    public int GetLevelSeed()
-    {
-        return levelSeed;
-    }
-
     private void LoadLevelFromDisk(string name)
     {
         loadedLevel = LevelLoader.LoadLevel(name);
         levelName = loadedLevel.name;
         levelWidth = loadedLevel.width;
         levelHeight = loadedLevel.height;
-        numBricksRemaining = loadedLevel.numBreakableBricks;
+        NumBricksRemaining = loadedLevel.numBreakableBricks;
     }
 
     public string GetLevelName()
@@ -105,7 +68,7 @@ public class LevelManager : MonoBehaviour
 
     public bool LevelFinished()
     {
-        return numBricksRemaining == 0;
+        return NumBricksRemaining == 0;
     }
 
     public void ResetLevel()
@@ -116,18 +79,18 @@ public class LevelManager : MonoBehaviour
 
     public void BrickDestroyed()
     {
-        numBricksRemaining--;
+        NumBricksRemaining--;
     }
 
     private void LoadLevel()
     {
         if (gameSettings.endlessMode)
         {
-            Random.InitState(levelSeed);
-            brickSpawner.GenerateBricks(this.CanPlaceBrickForSeed, null);
+            Random.InitState(gameSettings.endlessSettings.levelSeed);
+            brickSpawner.GenerateBricks(new EndlessSpawning(this));
         } else
         {
-            brickSpawner.GenerateBricks(this.CanPlaceBrickForLevel, null);
+            brickSpawner.GenerateBricks(new LevelSpawning(loadedLevel));
         }
     }
 
