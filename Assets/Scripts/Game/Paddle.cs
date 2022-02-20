@@ -35,7 +35,7 @@ public class Paddle : MonoBehaviour
     {
         if (col.gameObject.tag == "Border")
         {
-            inputVelocity *= 0.0f;
+            inputVelocity = 0.0f;
         }
     }
 
