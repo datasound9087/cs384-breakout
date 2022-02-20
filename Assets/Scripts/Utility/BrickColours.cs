@@ -17,12 +17,12 @@ public class BrickColours : ScriptableObject
     {
         switch (durability)
         {
-            case 1: return durability1;
-            case 2: return durability2;
-            case 3: return durability3;
-            case 4: return durability4;
-            case 5: return durability5;
-            case 6: return durability6;
+            case DurabilityConstants.Durability1: return durability1;
+            case DurabilityConstants.Durability2: return durability2;
+            case DurabilityConstants.Durability3: return durability3;
+            case DurabilityConstants.Durability4: return durability4;
+            case DurabilityConstants.Durability5: return durability5;
+            case DurabilityConstants.Durability6: return durability6;
             default: return unbreakable;
         }
     }

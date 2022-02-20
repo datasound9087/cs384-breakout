@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameSettings : ScriptableObject
 {
     public bool endlessMode;
+    public int startingLives;
 
     public EndlessSettings endlessSettings;
 }

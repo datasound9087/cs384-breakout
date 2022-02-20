@@ -8,6 +8,7 @@ public class PowerupManager : MonoBehaviour
     private Camera gameCamera;
     private Paddle paddle;
     private Dictionary<string, PowerupProperty> powerupMap;
+    private List<string> powerupKeys;
     private List<Powerup> activePowerups;
     // Start is called before the first frame update
     void Awake()
@@ -18,6 +19,7 @@ public class PowerupManager : MonoBehaviour
 
         powerupMap = new Dictionary<string, PowerupProperty>();
         activePowerups = new List<Powerup>();
+        powerupKeys = new List<string>();
         LoadPowerups();
     }
 
@@ -35,6 +37,13 @@ public class PowerupManager : MonoBehaviour
                 activePowerups.RemoveAt(i);
             }
         }
+    }
+
+    public string GetRandomPowerup()
+    {
+        int val = Random.Range(0, powerupKeys.Count - 1);
+        string name = powerupKeys[val];
+        return name;
     }
 
     public void AddPowerup(string name)
@@ -55,6 +64,7 @@ public class PowerupManager : MonoBehaviour
         foreach (PowerupProperty powerup in loadedPowerups)
         {
             powerupMap.Add(powerup.name, powerup);
+            powerupKeys.Add(powerup.name);
         }
     }
 

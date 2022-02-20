@@ -87,7 +87,8 @@ public class LevelManager : MonoBehaviour
         if (gameSettings.endlessMode)
         {
             Random.InitState(gameSettings.endlessSettings.levelSeed);
-            brickSpawner.GenerateBricks(new EndlessSpawning(this));
+            PowerupManager powerupManager = FindObjectOfType<PowerupManager>();
+            brickSpawner.GenerateBricks(new EndlessSpawning(this, powerupManager));
         } else
         {
             brickSpawner.GenerateBricks(new LevelSpawning(loadedLevel));

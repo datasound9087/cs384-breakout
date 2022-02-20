@@ -11,8 +11,7 @@ public class GameManager : MonoBehaviour
     private Ball ball;
     private Paddle paddle;
     private bool gameBegun = false;
-    private static readonly int MAX_LIVES = 3;
-    private int lives = MAX_LIVES;
+    private int lives;
     private bool gamePaused = false;
 
     void Awake()
@@ -21,6 +20,8 @@ public class GameManager : MonoBehaviour
         levelManager = FindObjectOfType<LevelManager>();
         ball = FindObjectOfType<Ball>();
         paddle = FindObjectOfType<Paddle>();
+
+        lives = gameSettings.startingLives;
     }
 
     // Update is called once per frame
@@ -96,7 +97,7 @@ public class GameManager : MonoBehaviour
     
     public void Restart()
     {
-        lives = MAX_LIVES;
+        lives = gameSettings.startingLives;
         paddle.Reset();
         ball.Reset();
         levelManager.ResetLevel();

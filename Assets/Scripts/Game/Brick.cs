@@ -7,7 +7,7 @@ public class Brick : MonoBehaviour
     public BrickColours brickColours;
     private bool hasPowerup = false;
     private bool unbreakable = false;
-    private int durability = 1;
+    private int durability = DurabilityConstants.Durability1;
     private PowerupInfo powerupInfo;
 
     private LevelManager levelManager;
@@ -35,7 +35,7 @@ public class Brick : MonoBehaviour
                 powerupSpawner.SpawnPowerupProjectileFromBrick(this, powerupInfo);
             }
 
-            if (!unbreakable && durability == 0)
+            if (!unbreakable && durability == DurabilityConstants.Broken)
             {
                 levelManager.BrickDestroyed();
                 Destroy(this.gameObject);
@@ -46,7 +46,7 @@ public class Brick : MonoBehaviour
     public void setDurability(int durability)
     {
         this.durability = durability;
-        if (this.durability < 0)
+        if (this.durability < DurabilityConstants.Broken)
         {
             unbreakable = true;
         }
