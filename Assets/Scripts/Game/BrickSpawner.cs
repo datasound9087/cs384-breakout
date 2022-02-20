@@ -21,8 +21,7 @@ public class BrickSpawner : MonoBehaviour
     
     /*
         Generate bricks into the world of the correct size and shape. 
-        brickSpawnFunc - For a given position should a brick be spawned there
-        initialiseBrickFunc - Optional function to do any other brick specific setup - ie durability/breakable.
+        spawnRules - IBrickSpawning which provides spawning rules and other brick initialising logic.
     */
     public void GenerateBricks(IBrickSpawning spawnRules)
     {
