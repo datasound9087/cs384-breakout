@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelSpawning : IBrickSpawning
 {
     private Level level;
+    private const int AIR_ID = 0;
 
     public LevelSpawning(Level level)
     {
@@ -17,7 +18,7 @@ public class LevelSpawning : IBrickSpawning
             return false;
         }
 
-        return level.rowRefs[y][x] > 0;
+        return level.rowRefs[y][x] != AIR_ID;
     }
     public void OnBrickInitialise(int x, int y, Brick brick)
     {
