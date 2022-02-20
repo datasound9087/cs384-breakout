@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
         if (!gameSettings.endlessMode)
         {
             LoadLevelFromDisk("Level01");
-        } else
+        }
 
         LoadLevel();
     }
