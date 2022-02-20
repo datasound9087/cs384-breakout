@@ -11,7 +11,7 @@ public class Level
     public int height;
     public LevelRow levelRows;
 
-    public List<PowerupProperties> powerupLocations;
+    public List<PowerupProperty> powerupLocations;
 
     // Below here values are calculated internally - mainly for ease of use 
     // For ease of use

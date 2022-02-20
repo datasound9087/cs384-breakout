@@ -1992,6 +1992,7 @@ GameObject:
   - component: {fileID: 876542141}
   - component: {fileID: 876542142}
   - component: {fileID: 876542143}
+  - component: {fileID: 876542144}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -2059,6 +2060,18 @@ MonoBehaviour:
   brickArea: {fileID: 2087898541}
   levelWidth: 15
   levelHeight: 15
+--- !u!114 &876542144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876542139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a963db9f529d1094b9ca562fec1b8074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &904436196
 GameObject:
   m_ObjectHideFlags: 0
@@ -4397,6 +4410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2087898542}
   - component: {fileID: 2087898543}
+  - component: {fileID: 2087898544}
   m_Layer: 0
   m_Name: BrickArea
   m_TagString: BrickArea
@@ -4435,6 +4449,19 @@ MonoBehaviour:
   wallWorldAreaRangeX: 5
   wallWorldAreaRangeY: 2
   gapBetweenBricks: 0.1
+--- !u!114 &2087898544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087898541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1339c37f7cca7b458cd4aa792966b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerupProjectile: {fileID: 4823706429666881294, guid: a7170d957e157394d83c0d8b85cde42d, type: 3}
 --- !u!1 &2088965176
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ TagManager:
   - ResumeButton
   - RestartButton
   - QuitToMenuButton
+  - PowerupProjectile
   layers:
   - Default
   - TransparentFX

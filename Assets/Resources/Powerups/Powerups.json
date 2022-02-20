@@ -1,3 +1,9 @@
 {
-    
+    "powerups": [
+        {
+            "name": "flipScreen",
+            "duration": 5,
+            "effectName": "FlipScreenEffect"
+        }
+    ]
 }

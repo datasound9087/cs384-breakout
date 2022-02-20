@@ -23,5 +23,24 @@ public class LevelSpawning : IBrickSpawning
     {
         int durability = level.rowRefs[y][x];
         brick.setDurability(durability);
+
+        foreach (PowerupProperty property in level.powerupLocations)
+        {
+            if (CanAddPowerup(x, y, property))
+            {
+                AddPowerup(brick, property);
+            }
+        }
+    }
+
+    private bool CanAddPowerup(int x, int y, PowerupProperty property)
+    {
+        return x == property.location[0] && y == property.location[1];
+    }
+
+    private void AddPowerup(Brick brick, PowerupProperty property)
+    {
+        PowerupInfo info = new PowerupInfo(property);
+        brick.SetPowerupInfo(info);
     }
 }

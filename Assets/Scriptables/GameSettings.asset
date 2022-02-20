@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   endlessMode: 1
-  levelSeed: 0
-  levelRound: 1
+  endlessSettings: {fileID: 11400000, guid: 0f62b1d0f1781644caabe7dc283ec6e3, type: 2}
