@@ -26,7 +26,7 @@ public class EndlessSpawning : IBrickSpawning
         int durability = Random.Range(1, 6);
         brick.setDurability(durability);
 
-        PowerupInfo info = new PowerupInfo("test", true, 1);
+        PowerupInfo info = new PowerupInfo("paddleLength", true, 1);
         brick.SetPowerupInfo(info);
     }
 }

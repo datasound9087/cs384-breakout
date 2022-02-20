@@ -11,7 +11,7 @@ public class Level
     public int height;
     public LevelRow levelRows;
 
-    public List<PowerupProperty> powerupLocations;
+    public List<BrickPowerupLocation> powerupLocations;
 
     // Below here values are calculated internally - mainly for ease of use 
     // For ease of use

@@ -5,11 +5,11 @@ public class PowerupInfo
     private bool onHit;
     private int onDurability;
 
-    public PowerupInfo(PowerupProperty property)
+    public PowerupInfo(BrickPowerupLocation location)
     {
-        this.name = property.name;
-        this.onHit = property.onHit;
-        this.onDurability = property.onDurability;
+        this.name = location.name;
+        this.onHit = location.onHit;
+        this.onDurability = location.onDurability;
     }
 
     public PowerupInfo(string name, bool onHit, int onDurability)

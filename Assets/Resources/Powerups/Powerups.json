@@ -2,8 +2,11 @@
     "powerups": [
         {
             "name": "flipScreen",
-            "duration": 5,
-            "effectName": "FlipScreenEffect"
+            "duration": 5
+        },
+        {
+            "name": "paddleLength",
+            "duration": 10
         }
     ]
 }

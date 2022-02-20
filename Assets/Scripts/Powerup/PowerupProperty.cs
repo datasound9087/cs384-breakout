@@ -6,7 +6,5 @@ using UnityEngine;
 public class PowerupProperty
 {
     public string name;
-    public List<int> location;
-    public bool onHit;
-    public int onDurability;
+    public int duration;
 }

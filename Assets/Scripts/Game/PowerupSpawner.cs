@@ -16,6 +16,6 @@ public class PowerupSpawner : MonoBehaviour
         PowerupProjectile projectile = Instantiate(powerupProjectile, powerupPosition, Quaternion.identity, this.transform).GetComponent<PowerupProjectile>();
         projectile.transform.localScale = brick.transform.localScale;
 
-        projectile.PowerupInfo = info;
+        projectile.PowerupName = info.GetName();
     }
 }

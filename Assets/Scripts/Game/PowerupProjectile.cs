@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PowerupProjectile : MonoBehaviour
 {
-    public PowerupInfo PowerupInfo { get; set; }
+    public string PowerupName { get; set; }
     private PowerupManager powerupManager;
     private Collider2D powerupCollider;
     private Rigidbody2D body;
@@ -23,7 +23,6 @@ public class PowerupProjectile : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log(col.gameObject.tag);
         if (ShouldIgnoreCollision(col))
         {
             Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), powerupCollider);
@@ -32,7 +31,7 @@ public class PowerupProjectile : MonoBehaviour
 
         if (col.gameObject.tag == "Paddle")
         {
-            powerupManager.AddPowerup(PowerupInfo);
+            powerupManager.AddPowerup(PowerupName);
             Destroy(this.gameObject);
         } else if (col.gameObject.tag == "DeathArea")
         {
