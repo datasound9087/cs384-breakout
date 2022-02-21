@@ -36,6 +36,11 @@ public sealed class ProfileManager
         curentProfile = profiles[profileIndex];
     }
 
+    public Profile GetActiveProfile()
+    {
+        return curentProfile;
+    }
+
     public static ProfileManager Instance
     {
         get

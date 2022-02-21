@@ -95,7 +95,6 @@ public class MainMenu : MonoBehaviour
     private void PopulateProfiles()
     {
         List<Profile> profiles = ProfileManager.Instance.GetProfiles();
-        Debug.Log(profiles.Count);
         if (profiles.Count == 0)
         {
             return;

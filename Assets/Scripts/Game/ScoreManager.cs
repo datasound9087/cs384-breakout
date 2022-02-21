@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    
+    public GameSettings gameSettings;
     private int score;
     private int highScore;
 
     void Awake()
     {
-        highScore = 0;
+        if (gameSettings.endlessMode)
+        {
+            highScore = ProfileManager.Instance.GetActiveProfile().endlessHighScore;
+        } else
+        {
+            highScore = ProfileManager.Instance.GetActiveProfile().levelsHighScore;
+        }
         Reset();
     }
 
@@ -36,5 +42,20 @@ public class ScoreManager : MonoBehaviour
     public int GetHighScore()
     {
         return highScore;
+    }
+
+    public void SaveScore()
+    {
+        if (score > highScore)
+        {
+            if (gameSettings.endlessMode)
+            {
+                ProfileManager.Instance.GetActiveProfile().endlessHighScore = highScore;
+            } else
+            {
+                ProfileManager.Instance.GetActiveProfile().levelsHighScore = highScore;
+            }
+            ProfileManager.Instance.SaveProfiles();
+        }
     }
 }
