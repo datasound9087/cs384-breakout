@@ -7,10 +7,17 @@ public class PlayMenu : MonoBehaviour
 {
     public GameSettings gameSettings;
 
+    private MenuSceneAnimator sceneAnimator;
+
+    void Awake()
+    {
+        sceneAnimator = GetComponent<MenuSceneAnimator>();
+    }
+
     public void OnLevelsButtonClicked()
     {
         gameSettings.endlessMode = false;
-        SceneManager.LoadSceneAsync("Game");
+        sceneAnimator.TransitionToScene("Game");
     }
 
     public void OnEndlessButtonClicked()
@@ -19,11 +26,11 @@ public class PlayMenu : MonoBehaviour
         // Generate seed for level generation
         gameSettings.endlessSettings.levelSeed = Random.Range(int.MinValue, int.MaxValue);
 
-        SceneManager.LoadSceneAsync("Game");
+        sceneAnimator.TransitionToScene("Game");
     }
 
     public void OnBackButtonClicked()
     {
-        SceneManager.LoadSceneAsync("MainMenu");
+        sceneAnimator.TransitionToScene("MainMenu");
     }
 }
