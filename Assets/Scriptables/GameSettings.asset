@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cefe0c10fb4adc046a443bc68b4573cb, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  endlessMode: 1
+  endlessMode: 0
   startingLives: 3
   endlessSettings: {fileID: 11400000, guid: 0f62b1d0f1781644caabe7dc283ec6e3, type: 2}
