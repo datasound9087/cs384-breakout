@@ -5,8 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class OptionsMenu : MonoBehaviour
 {
+    private MenuSceneAnimator menuSceneAnimator;
+
+    void Awake()
+    {
+        menuSceneAnimator = GetComponent<MenuSceneAnimator>();
+    }
     public void OnBackButtonClicked()
     {
-        SceneManager.LoadSceneAsync("MainMenu");
+        menuSceneAnimator.TransitionToScene("MainMenu");
     }
 }

@@ -17,9 +17,12 @@ public class MainMenu : MonoBehaviour
     public GameObject ProfileCreationPanel;
     public GameObject profileCreationInputField;
 
+    private MenuSceneAnimator menuSceneAnimator;
+
     void Awake()
     {
         PopulateProfiles();
+        menuSceneAnimator = GetComponent<MenuSceneAnimator>();
     }
 
     void Update()
@@ -33,12 +36,12 @@ public class MainMenu : MonoBehaviour
 
     public void OnPlayButtonClicked()
     {
-        SceneManager.LoadSceneAsync("PlayMenu");
+        menuSceneAnimator.TransitionToScene("PlayMenu");
     }
 
     public void OnOptionsButtonClicked()
     {
-        SceneManager.LoadSceneAsync("OptionsMenu");
+        menuSceneAnimator.TransitionToScene("OptionsMenu");
     }
 
     public void OnQuitButtonClicked()
