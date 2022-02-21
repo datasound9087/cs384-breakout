@@ -5,8 +5,8 @@ using UnityEngine;
 public class Paddle : MonoBehaviour
 {
     public float movementSpeed = 400.0f;
-    private float inputVelocity = 0.0f;
     public float InputVelocity { get { return inputVelocity; }}
+    private float inputVelocity = 0.0f;
     private Rigidbody2D paddleBody;
 
     private Vector3 startPosition;

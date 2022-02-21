@@ -17,5 +17,6 @@ public class PowerupSpawner : MonoBehaviour
         projectile.transform.localScale = brick.transform.localScale;
 
         projectile.PowerupName = info.GetName();
+        projectile.SetFallingVelocity(Vector2.down * fallingSpeed);
     }
 }

@@ -8,17 +8,15 @@ public class PowerupProjectile : MonoBehaviour
     private PowerupManager powerupManager;
     private Collider2D powerupCollider;
     private Rigidbody2D body;
+    private Vector2 fallingVelocity;
     void Awake()
     {
         powerupManager = FindObjectOfType<PowerupManager>();
         powerupCollider = GetComponent<Collider2D>();
 
         body = GetComponent<Rigidbody2D>();
-    }
 
-    void FixedUpdate()
-    {
-        body.velocity = Vector2.down * 2.0f;
+        //body.velocity = Vector2.down * 2.0f;
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -26,6 +24,7 @@ public class PowerupProjectile : MonoBehaviour
         if (ShouldIgnoreCollision(col))
         {
             Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), powerupCollider);
+            body.velocity = fallingVelocity;
             return;
         }
 
@@ -43,5 +42,10 @@ public class PowerupProjectile : MonoBehaviour
     {
         return col.gameObject.tag == "Brick" || col.gameObject.tag == "Ball"
                 || col.gameObject.tag == "PowerupProjectile";
+    }
+
+    public void SetFallingVelocity(Vector2 fallingSpeed)
+    {
+        this.fallingVelocity = fallingSpeed;
     }
 }
