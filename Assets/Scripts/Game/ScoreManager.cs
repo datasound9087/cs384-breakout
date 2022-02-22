@@ -46,7 +46,8 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveScore()
     {
-        if (score > highScore)
+        // If new highscore datat to be saved
+        if (score == highScore)
         {
             if (gameSettings.endlessMode)
             {
