@@ -6,11 +6,14 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pausePanel;
+    public GameObject circleFade;
     private GameManager gameManager;
+    private MenuSceneAnimator menuSceneAnimator;
     
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        menuSceneAnimator = circleFade.GetComponent<MenuSceneAnimator>();
     }
 
     void Update()
@@ -36,7 +39,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OnQuitToMainMenuButtonClicked()
     {
-        SceneManager.LoadSceneAsync("MainMenu");
         gameManager.Resume(); // So that when relaunched game is unpaused
+        menuSceneAnimator.TransitionToScene("MainMenu");
     }
 }

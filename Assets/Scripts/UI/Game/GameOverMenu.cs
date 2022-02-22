@@ -9,23 +9,26 @@ public class GameOverMenu : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject gameOverLevelText;
     public GameObject gameOverScoreText;
+    public GameObject circleFade;
     private GameManager gameManager;
     private ScoreManager scoreManager;
     private LevelManager levelManager;
-    private readonly string LEVEL_TEXT = "Level: ";
-    private readonly string SCORE_TEXT = "Score: ";
+    private MenuSceneAnimator menuSceneAnimator;
+    private const string LEVEL_TEXT = "Level: ";
+    private const string SCORE_TEXT = "Score: ";
     
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
         levelManager = FindObjectOfType<LevelManager>();
+        menuSceneAnimator = circleFade.GetComponent<MenuSceneAnimator>();
     }
 
     public void OnQuitToMainMenuButtonClicked()
     {
-        SceneManager.LoadSceneAsync("MainMenu");
         gameManager.Resume(); // So that when relaunched game is unpaused
+        menuSceneAnimator.TransitionToScene("MainMenu");
     }
 
     // Update is called once per frame

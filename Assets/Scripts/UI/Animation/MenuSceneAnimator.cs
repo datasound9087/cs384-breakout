@@ -17,7 +17,10 @@ public class MenuSceneAnimator : MonoBehaviour
     private IEnumerator ToNextScene(string name)
     {
         sceneAnimator.SetTrigger("SceneOut");
-        yield return new WaitForSeconds(waitTime);
+
+        // Time.timeScale independent version of WaitForSeconds. Therefore transitions can run independently of timeScale
+        // Required if the game is paused (Time.timeScale = 0)
+        yield return new WaitForSecondsRealtime(waitTime);
         SceneManager.LoadSceneAsync(name);
     }
 }

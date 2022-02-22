@@ -9,17 +9,20 @@ public class LevelCompleteMenu : MonoBehaviour
     public GameObject levelCompletePanel;
     public GameObject levelCompleteScoreText;
     public GameObject levelCompleteLevelText;
+    public GameObject circleFade;
     private GameManager gameManager;
     private ScoreManager scoreManager;
     private LevelManager levelManager;
-    private readonly string LEVEL_TEXT = "Level: ";
-    private readonly string SCORE_TEXT = "Score: ";
+    private MenuSceneAnimator menuSceneAnimator;
+    private const string LEVEL_TEXT = "Level: ";
+    private const string SCORE_TEXT = "Score: ";
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
         levelManager = FindObjectOfType<LevelManager>();
+        menuSceneAnimator = circleFade.GetComponent<MenuSceneAnimator>();
     }
 
     void Update()
@@ -48,8 +51,8 @@ public class LevelCompleteMenu : MonoBehaviour
 
     public void OnQuitToMainMenuButtonClicked()
     {
-        SceneManager.LoadSceneAsync("MainMenu");
         gameManager.Resume();
+        menuSceneAnimator.TransitionToScene("MainMenu");
     }
 
     private void UpdateText()
