@@ -340,8 +340,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1214436144}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1214436148}
+        m_TargetAssemblyTypeName: ProfilePanel, Assembly-CSharp
         m_MethodName: OnProfileButtonClicked
         m_Mode: 3
         m_Arguments:
@@ -473,8 +473,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1214436144}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1214436149}
+        m_TargetAssemblyTypeName: ProfileCreationPanel, Assembly-CSharp
         m_MethodName: OnProfileCreationEnded
         m_Mode: 1
         m_Arguments:
@@ -1157,8 +1157,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1214436144}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1214436149}
+        m_TargetAssemblyTypeName: ProfileCreationPanel, Assembly-CSharp
         m_MethodName: OnProfileCreationEnded
         m_Mode: 1
         m_Arguments:
@@ -1594,8 +1594,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1214436144}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1214436148}
+        m_TargetAssemblyTypeName: ProfilePanel, Assembly-CSharp
         m_MethodName: OnProfileButtonClicked
         m_Mode: 3
         m_Arguments:
@@ -2238,6 +2238,8 @@ GameObject:
   - component: {fileID: 1214436141}
   - component: {fileID: 1214436140}
   - component: {fileID: 1214436144}
+  - component: {fileID: 1214436148}
+  - component: {fileID: 1214436149}
   - component: {fileID: 1214436145}
   - component: {fileID: 1214436146}
   - component: {fileID: 1214436147}
@@ -2347,14 +2349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressToStartText: {fileID: 210941074}
-  OptionsPanel: {fileID: 821800745}
-  ProfilesSelectionPanel: {fileID: 151009664}
-  profile1Button: {fileID: 1587428263}
-  profile2Button: {fileID: 724027219}
-  profile3Button: {fileID: 47939669}
-  profile4Button: {fileID: 2045637878}
-  ProfileCreationPanel: {fileID: 2075512840}
-  profileCreationInputField: {fileID: 474206146}
+  optionsPanel: {fileID: 821800745}
 --- !u!225 &1214436145
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2400,6 +2395,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1214436148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214436139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c761f74f8e163e4ea0d3d23ba9e1fcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profilesSelectionPanel: {fileID: 151009664}
+  profile1Button: {fileID: 1587428263}
+  profile2Button: {fileID: 724027219}
+  profile3Button: {fileID: 47939669}
+  profile4Button: {fileID: 2045637878}
+--- !u!114 &1214436149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214436139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd86682e2b0f540468a4ad695c5b1042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profileCreationPanel: {fileID: 2075512840}
+  profileCreationInputField: {fileID: 474206146}
 --- !u!1 &1245484555
 GameObject:
   m_ObjectHideFlags: 0
@@ -2906,8 +2932,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1214436144}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1214436148}
+        m_TargetAssemblyTypeName: ProfilePanel, Assembly-CSharp
         m_MethodName: OnProfileButtonClicked
         m_Mode: 3
         m_Arguments:
@@ -3224,8 +3250,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1214436144}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1214436148}
+        m_TargetAssemblyTypeName: ProfilePanel, Assembly-CSharp
         m_MethodName: OnProfileButtonClicked
         m_Mode: 3
         m_Arguments:
