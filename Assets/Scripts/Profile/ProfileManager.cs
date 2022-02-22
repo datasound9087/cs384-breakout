@@ -7,7 +7,7 @@ public sealed class ProfileManager
     private static ProfileManager instance = null;
 
     private List<Profile> profiles;
-    private Profile curentProfile;
+    private Profile curentProfile = null;
     private const int MaxNumProfiles = 4;
 
     private ProfileManager()
@@ -25,10 +25,13 @@ public sealed class ProfileManager
         return profiles.Count;
     }
 
-    public void AddActiveProfile(Profile profile)
+    public void AddProfile(Profile profile)
     {
+        if (profiles.Contains(profile))
+        {
+            return;
+        }
         profiles.Add(profile);
-        curentProfile = profile;
     }
 
     public void SetActiveProfile(int profileIndex)
@@ -36,9 +39,28 @@ public sealed class ProfileManager
         curentProfile = profiles[profileIndex];
     }
 
+    public void SetActiveProfile(Profile profile)
+    {
+        if (profiles.Contains(profile))
+        {
+            curentProfile = profile;
+        }
+    }
+
     public Profile GetActiveProfile()
     {
         return curentProfile;
+    }
+
+    public void DeleteProfile(int profileIndex)
+    {
+        Profile profile = profiles[profileIndex];
+        if (profile == curentProfile)
+        {
+            curentProfile = null;
+        }
+        profiles.Remove(profile);
+        SaveProfiles();
     }
 
     public static ProfileManager Instance

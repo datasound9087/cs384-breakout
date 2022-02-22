@@ -24,6 +24,7 @@ public class ProfilePanel : MonoBehaviour
 
     private const string LevelsHighScoreText = "Levels: ";
     private const string EndlessHighScoreText = "Endless: ";
+    private const string DefaultProfileText = "Profile ";
     private const int MaxNumberOfProfiles = 4;
 
     void Awake()
@@ -50,8 +51,29 @@ public class ProfilePanel : MonoBehaviour
         } else
         {
             ProfileManager.Instance.SetActiveProfile(profileIndex - 1);
-            ReturnToMainMenu();
+            if (EditProfile())
+            {
+                profileCreationPanel.SetProfileData(ProfileManager.Instance.GetActiveProfile());
+                ShowProfileCreationPanel();
+            } else if(DeleteProfile())
+            {
+                ProfileManager.Instance.DeleteProfile(profileIndex - 1);
+                UpdateUIForProfile(profileIndex, DefaultProfileText, "", "");
+            } else
+            {
+                ReturnToMainMenu();
+            }
         }
+    }
+
+    private bool EditProfile()
+    {
+        return Input.GetKey("space");
+    }
+
+    private bool DeleteProfile()
+    {
+        return Input.GetKey("delete");
     }
 
     private void ShowProfileCreationPanel()
@@ -106,6 +128,30 @@ public class ProfilePanel : MonoBehaviour
     {
         levelsText.GetComponent<TextMeshProUGUI>().SetText(LevelsHighScoreText + profile.levelsHighScore);
         endlessText.GetComponent<TextMeshProUGUI>().SetText(EndlessHighScoreText + profile.endlessHighScore);
+    }
+
+    private void UpdateUIForProfile(int profileIndex, string profileNameText, string levelsText, string endlessText)
+    {
+        // Trick for populating profiles without loads of duplicated code
+        // make possible to reference related gameobjects via an index, then load all at once
+        GameObject[] profileButtons = new GameObject[] {
+            profile1Button, profile2Button,
+            profile3Button, profile4Button
+        };
+
+        GameObject[] profileLevelsTexts = new GameObject[] {
+            profile1LevelsHighScoreText, profile2LevelsHighScoreText,
+            profile3LevelsHighScoreText, profile4LevelsHighScoreText
+        };
+
+        GameObject[] profileEndlessTexts = new GameObject[] {
+            profile1EndlessHighScoreText, profile2EndlessHighScoreText,
+            profile3EndlessHighScoreText, profile4EndlessHighScoreText
+        };
+
+        profileButtons[profileIndex - 1].GetComponentInChildren<TextMeshProUGUI>().SetText(profileNameText);
+        profileLevelsTexts[profileIndex - 1].GetComponent<TextMeshProUGUI>().SetText(levelsText);
+        profileEndlessTexts[profileIndex - 1].GetComponent<TextMeshProUGUI>().SetText(endlessText);
     }
 
     private void ReturnToMainMenu()

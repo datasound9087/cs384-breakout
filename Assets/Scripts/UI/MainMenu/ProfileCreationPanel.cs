@@ -8,6 +8,7 @@ public class ProfileCreationPanel : MonoBehaviour
     public GameObject profileCreationPanel;
     public GameObject profileCreationInputField;
     private MainMenu mainMenu;
+    private Profile editedProfile = null;
 
     void Awake()
     {
@@ -16,18 +17,28 @@ public class ProfileCreationPanel : MonoBehaviour
 
     public void OnProfileCreationEnded()
     {
-        Profile profile = new Profile();
-        profile.name = profileCreationInputField.GetComponent<TMP_InputField>().text;
-        profile.endlessHighScore = 0;
-        profile.levelsHighScore = 0;
-        if (string.IsNullOrEmpty(profile.name) || string.IsNullOrWhiteSpace(profile.name))
+        string nameText = profileCreationInputField.GetComponent<TMP_InputField>().text;
+        if (string.IsNullOrEmpty(nameText) || string.IsNullOrWhiteSpace(nameText))
         {
             return;
         }
-        ProfileManager.Instance.AddActiveProfile(profile);
-        ProfileManager.Instance.SaveProfiles();
 
-        profileCreationPanel.SetActive(false);
+        Profile profile = null;
+        if (EditingProfile())
+        {
+            profile = editedProfile;
+        } else
+        {
+            profile = new Profile();
+            profile.endlessHighScore = 0;
+            profile.levelsHighScore = 0;
+            ProfileManager.Instance.AddProfile(profile);
+        }
+
+        profile.name = nameText;
+        ProfileManager.Instance.SaveProfiles();
+        ProfileManager.Instance.SetActiveProfile(profile);
+
         ReturnToMainMenu();
     }
 
@@ -36,9 +47,20 @@ public class ProfileCreationPanel : MonoBehaviour
         profileCreationPanel.SetActive(true);
     }
 
+    public void SetProfileData(Profile profile)
+    {
+        editedProfile = profile;
+        profileCreationInputField.GetComponent<TMP_InputField>().text = profile.name;
+    }
+
     private void ReturnToMainMenu()
     {
         profileCreationPanel.SetActive(false);
         mainMenu.Show();
+    }
+
+    private bool EditingProfile()
+    {
+        return editedProfile != null;
     }
 }

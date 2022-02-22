@@ -13,7 +13,7 @@ public class ProfileIO
         {
             return new List<Profile>();
         }
-
+        
         ProfileJSON profileJSON = JsonUtility.FromJson<ProfileJSON>(profilesStr);
         return profileJSON.profiles;
     }
