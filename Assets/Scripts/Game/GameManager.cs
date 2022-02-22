@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviour
         {
             Pause();
         }
-
-        if (lives > 0 && GameOver())
+        
+        if (lives == 0 || GameOver())
         {
             scoreManager.SaveScore();
             Pause();
