@@ -1,0 +1,12 @@
+{
+    "achievements": [
+        {
+            "name": "I can play this",
+            "description": "Complete the first level",
+            "persistsAcrossLevels": true,
+            "properties": [
+                "Level01Complete"
+            ]
+        }
+    ]
+}

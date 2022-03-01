@@ -1,0 +1,10 @@
+{
+    "achievementProperties": [
+        {
+            "name": "Level01Complete",
+            "initialValue": 0,
+            "activationValue": 1,
+            "activationRule": "="
+        }
+    ]
+}
