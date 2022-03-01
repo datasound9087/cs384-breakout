@@ -11,6 +11,7 @@ public class LevelSpawning : IBrickSpawning
     {
         this.level = level;
     }
+    
     public bool OnPlace(int x, int y)
     {
         if (x >= level.width || y >= level.height)
@@ -20,6 +21,7 @@ public class LevelSpawning : IBrickSpawning
 
         return level.rowRefs[y][x] != AIR_ID;
     }
+
     public void OnBrickInitialise(int x, int y, Brick brick)
     {
         int durability = level.rowRefs[y][x];
