@@ -12,10 +12,12 @@ public class BrickSpawner : MonoBehaviour
     public float wallWorldAreaRangeY;
     public float gapBetweenBricks;
     private LevelManager levelManager;
+    private ScoreManager scoreManager;
 
     void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
     
     /*
@@ -55,6 +57,9 @@ public class BrickSpawner : MonoBehaviour
                     Vector3 pos = new Vector3(startX, startY, 0);
                     Brick go = Instantiate(brick, pos, Quaternion.identity, this.transform).GetComponent<Brick>();
                     go.transform.localScale = brickScale2;
+                    
+                    go.OnBreak += levelManager.BrickDestroyed;
+                    go.OnHit += scoreManager.IncrementScore;
                     
                     spawnRules.OnBrickInitialise(x, y, go);
                 }

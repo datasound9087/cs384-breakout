@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     // Game settings
     public GameSettings gameSettings;
+
+    public event Action OnGameOver; 
+
     private ScoreManager scoreManager;
     private LevelManager levelManager;
     private Ball ball;
@@ -45,11 +49,13 @@ public class GameManager : MonoBehaviour
     {
         if (lives == 0)
         {
+            OnGameOver();
             Pause();
         }
         
         if (lives == 0 || GameOver())
         {
+            OnGameOver();
             scoreManager.SaveScore();
             Pause();
         }

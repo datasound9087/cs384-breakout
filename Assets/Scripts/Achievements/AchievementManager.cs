@@ -1,22 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class AchievementManager
+public class AchievementManager : MonoBehaviour
 {
     private Dictionary<string, AchievementProperty> achievementProperties;
     private List<Achievement> achievements;
 
-    public void Init()
+    void Awake()
+    {
+        LoadAchievements();
+
+        LevelManager levelManager = FindObjectOfType<LevelManager>();
+        levelManager.OnLevelComplete += this.OnLevelComplete;
+
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        gameManager.OnGameOver += this.OnGameOver;
+    }
+    public void LoadAchievements()
     {
         achievementProperties = AchievementLoader.LoadProperties();
         achievements = AchievementLoader.LoadAchievements(achievementProperties);
     }
 
-    public void OnNotify(GameObject gameObject, Event gameEvent)
+    public void OnLevelComplete(string levelName)
     {
-        /*switch (gameEvent)
+        if (levelName == "Level01Complete")
         {
-            case Event.LEVEL_COMPLETE
-        }*/
+            achievementProperties["Level01Complete"].Value = 1;
+        }
+        
+        CheckAchievements();
+    }
+
+    public void OnGameOver()
+    {
+        achievementProperties["GameOver"].Value = 1;
+        CheckAchievements();
+    }
+
+    private void CheckAchievements()
+    {
+        foreach (Achievement achievement in achievements)
+        {
+            achievement.Check();
+        }
     }
 }

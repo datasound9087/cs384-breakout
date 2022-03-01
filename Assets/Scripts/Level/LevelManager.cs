@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 public class LevelManager : MonoBehaviour
 {
     public GameSettings gameSettings;
     public GameObject brickArea;
     public int levelWidth;
     public int levelHeight;
+
+    public event Action<string> OnLevelComplete;
 
     public int NumBricksRemaining { get; set; }
     private BrickSpawner brickSpawner;
@@ -68,7 +71,13 @@ public class LevelManager : MonoBehaviour
 
     public bool LevelFinished()
     {
-        return NumBricksRemaining == 0;
+        bool levelComplete = NumBricksRemaining == 0;
+        if (levelComplete)
+        {
+            OnLevelComplete(levelName);
+        }
+
+        return levelComplete;
     }
 
     public void ResetLevel()
@@ -86,7 +95,7 @@ public class LevelManager : MonoBehaviour
     {
         if (gameSettings.endlessMode)
         {
-            Random.InitState(gameSettings.endlessSettings.levelSeed);
+            UnityEngine.Random.InitState(gameSettings.endlessSettings.levelSeed);
             PowerupManager powerupManager = FindObjectOfType<PowerupManager>();
             brickSpawner.GenerateBricks(new EndlessSpawning(this, powerupManager));
         } else

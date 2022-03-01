@@ -5,6 +5,12 @@
             "initialValue": 0,
             "activationValue": 1,
             "activationRule": "="
+        },
+        {
+            "name": "GameOver",
+            "initialValue": 0,
+            "activationValue": 1,
+            "activationRule": "="
         }
     ]
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Brick : MonoBehaviour
 {
@@ -10,15 +11,14 @@ public class Brick : MonoBehaviour
     private int durability = DurabilityConstants.Durability1;
     private PowerupInfo powerupInfo;
 
-    private LevelManager levelManager;
+    public event Action OnHit;
+    public event Action OnBreak;
+
     private PowerupSpawner powerupSpawner;
-    private ScoreManager scoreManager;
     private SpriteRenderer brickSprite;
 
     void Awake()
     {
-        levelManager = FindObjectOfType<LevelManager>();
-        scoreManager = FindObjectOfType<ScoreManager>();
         powerupSpawner = FindObjectOfType<PowerupSpawner>();
         brickSprite = GetComponent<SpriteRenderer>();
     }
@@ -27,7 +27,7 @@ public class Brick : MonoBehaviour
     {
         if (col.gameObject.tag == "Ball")
         {
-            scoreManager.IncrementScore();
+            OnHit();
             UpdateDurability();
 
             if (ShouldSpawnPowerup())
@@ -37,7 +37,7 @@ public class Brick : MonoBehaviour
 
             if (!unbreakable && durability == DurabilityConstants.Broken)
             {
-                levelManager.BrickDestroyed();
+                OnBreak();
                 Destroy(this.gameObject);
             }
         }

@@ -7,6 +7,14 @@
             "properties": [
                 "Level01Complete"
             ]
+        },
+        {
+            "name": "Loooooserrrrr",
+            "description": "Lose a game",
+            "persistsAcrossLevels": true,
+            "properties": [
+                "GameOver"
+            ]
         }
     ]
 }

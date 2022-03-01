@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Ball : MonoBehaviour
 {
     public float movementSpeed = 200.0f;
     public float startingAngleRange = 45.0f;
+
+    public event Action OnBounce;
 
     private Paddle paddle;
     private Rigidbody2D ballBody;
@@ -46,6 +49,8 @@ public class Ball : MonoBehaviour
         {
             Dead = true;
         }
+
+        OnBounce();
     }
 
     private void followPaddlePosition()
@@ -61,7 +66,7 @@ public class Ball : MonoBehaviour
         float startRange =  paddle.InputVelocity > 0 ? 0 : -startingAngleRange;
         float endRange = paddle.InputVelocity < 0 ? 0 : startingAngleRange;
 
-        float randAngle = Random.Range(startRange, endRange);
+        float randAngle = UnityEngine.Random.Range(startRange, endRange);
         Quaternion rotation = Quaternion.Euler(0, 0, randAngle);
         ballBody.velocity = rotation * Vector2.down * movementSpeed;
         stuck = false;
