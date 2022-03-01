@@ -34,6 +34,11 @@ public class MainMenu : MonoBehaviour
         menuSceneAnimator.TransitionToScene("PlayMenu");
     }
 
+    public void OnAchievementsButtonClicked()
+    {
+        menuSceneAnimator.TransitionToScene("AchievementsMenu");
+    }
+
     public void OnOptionsButtonClicked()
     {
         menuSceneAnimator.TransitionToScene("OptionsMenu");
