@@ -16,7 +16,7 @@ public class HighScoreCounter : MonoBehaviour
         scoreManager = FindObjectOfType<ScoreManager>();
 
         cachedHighScore = scoreManager.GetHighScore();
-        GetComponent<TextMeshProUGUI>().SetText(LIVES_TEXT + cachedHighScore);
+        GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + cachedHighScore;
     }
 
     void Update()
@@ -24,7 +24,7 @@ public class HighScoreCounter : MonoBehaviour
         if (scoreManager.GetHighScore() != cachedHighScore)
         {
             cachedHighScore = scoreManager.GetHighScore();
-            GetComponent<TextMeshProUGUI>().SetText(LIVES_TEXT + cachedHighScore);
+            GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + cachedHighScore;
         }
     }
 }

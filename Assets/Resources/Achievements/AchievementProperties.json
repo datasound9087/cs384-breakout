@@ -4,13 +4,22 @@
             "name": "Level01Complete",
             "initialValue": 0,
             "activationValue": 1,
-            "activationRule": "="
+            "activationRule": "=",
+            "persistsAcrossLevels": true
         },
         {
             "name": "GameOver",
             "initialValue": 0,
             "activationValue": 1,
-            "activationRule": "="
+            "activationRule": "=",
+            "persistsAcrossLevels": true
+        },
+        {
+            "name": "HitABrick",
+            "initialValue": 0,
+            "activationValue": 1,
+            "activationRule": "=",
+            "persistsAcrossLevels": true
         }
     ]
 }

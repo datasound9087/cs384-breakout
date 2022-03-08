@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelLoader
+public class LevelIO
 {
     public static Level LoadLevel(string name)
     {

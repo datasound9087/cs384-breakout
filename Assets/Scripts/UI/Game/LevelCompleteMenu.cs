@@ -57,7 +57,7 @@ public class LevelCompleteMenu : MonoBehaviour
 
     private void UpdateText()
     {
-        levelCompleteScoreText.GetComponent<TextMeshProUGUI>().SetText(SCORE_TEXT + scoreManager.GetScore());
-        levelCompleteLevelText.GetComponent<TextMeshProUGUI>().SetText(LEVEL_TEXT + levelManager.GetLevelName());
+        levelCompleteScoreText.GetComponent<TextMeshProUGUI>().text = SCORE_TEXT + scoreManager.GetScore();
+        levelCompleteLevelText.GetComponent<TextMeshProUGUI>().text = LEVEL_TEXT + levelManager.GetLevelName();
     }
 }

@@ -13,11 +13,13 @@ public class BrickSpawner : MonoBehaviour
     public float gapBetweenBricks;
     private LevelManager levelManager;
     private ScoreManager scoreManager;
+    private AchievementManager achievementManager;
 
     void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
+        achievementManager = FindObjectOfType<AchievementManager>();
     }
     
     /*
@@ -59,7 +61,10 @@ public class BrickSpawner : MonoBehaviour
                     go.transform.localScale = brickScale2;
                     
                     go.OnBreak += levelManager.BrickDestroyed;
+                    go.OnBreak += achievementManager.OnBrickDestroy;
+
                     go.OnHit += scoreManager.IncrementScore;
+                    go.OnHit += achievementManager.OnBrickHit;
                     
                     spawnRules.OnBrickInitialise(x, y, go);
                 }

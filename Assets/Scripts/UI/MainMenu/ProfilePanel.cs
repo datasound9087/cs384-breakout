@@ -119,15 +119,15 @@ public class ProfilePanel : MonoBehaviour
                 break;
             }
             Profile profile = profiles[i];
-            profileButtons[i].GetComponentInChildren<TextMeshProUGUI>().SetText(profile.name);
+            profileButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = profile.name;
             PopulateScoresForProfile(profile, profileLevelsText[i], profileEndlessText[i]);
         }
     }
 
     private void PopulateScoresForProfile(Profile profile, GameObject levelsText, GameObject endlessText)
     {
-        levelsText.GetComponent<TextMeshProUGUI>().SetText(LevelsHighScoreText + profile.levelsHighScore);
-        endlessText.GetComponent<TextMeshProUGUI>().SetText(EndlessHighScoreText + profile.endlessHighScore);
+        levelsText.GetComponent<TextMeshProUGUI>().text = LevelsHighScoreText + profile.levelsHighScore;
+        endlessText.GetComponent<TextMeshProUGUI>().text = EndlessHighScoreText + profile.endlessHighScore;
     }
 
     private void UpdateUIForProfile(int profileIndex, string profileNameText, string levelsText, string endlessText)
@@ -149,9 +149,9 @@ public class ProfilePanel : MonoBehaviour
             profile3EndlessHighScoreText, profile4EndlessHighScoreText
         };
 
-        profileButtons[profileIndex - 1].GetComponentInChildren<TextMeshProUGUI>().SetText(profileNameText);
-        profileLevelsTexts[profileIndex - 1].GetComponent<TextMeshProUGUI>().SetText(levelsText);
-        profileEndlessTexts[profileIndex - 1].GetComponent<TextMeshProUGUI>().SetText(endlessText);
+        profileButtons[profileIndex - 1].GetComponentInChildren<TextMeshProUGUI>().text = profileNameText;
+        profileLevelsTexts[profileIndex - 1].GetComponent<TextMeshProUGUI>().text = levelsText;
+        profileEndlessTexts[profileIndex - 1].GetComponent<TextMeshProUGUI>().text = endlessText;
     }
 
     private void ReturnToMainMenu()

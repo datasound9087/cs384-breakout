@@ -16,7 +16,7 @@ public class ScoreCounter : MonoBehaviour
         scoreManager = FindObjectOfType<ScoreManager>();
 
         cachedScore = scoreManager.GetScore();
-        GetComponent<TextMeshProUGUI>().SetText(LIVES_TEXT + cachedScore);
+        GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + cachedScore;
     }
 
     void Update()
@@ -24,7 +24,7 @@ public class ScoreCounter : MonoBehaviour
         if (scoreManager.GetScore() != cachedScore)
         {
             cachedScore = scoreManager.GetScore();
-            GetComponent<TextMeshProUGUI>().SetText(LIVES_TEXT + cachedScore);
+            GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + cachedScore;
         }
     }
 }

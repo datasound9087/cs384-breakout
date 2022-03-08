@@ -5,17 +5,20 @@ using UnityEngine;
 public class AchievementProperty
 {
     public string Name { get; }
-
     public int Value { get; set; }
+    public bool PersistsAccrossLevels { get; }
+    private int initialValue;
     private int activationValue;
     private ActivationRule activationRule;
     
-    public AchievementProperty(string name, int initialValue, int activationValue, ActivationRule activationRule)
+    public AchievementProperty(string name, int initialValue, int activationValue, ActivationRule activationRule, bool persistsAccrossLevels)
     {
         this.Name = name;
+        this.initialValue = initialValue;
         this.Value = initialValue;
         this.activationValue = activationValue;
         this.activationRule = activationRule;
+        this.PersistsAccrossLevels = persistsAccrossLevels;
     }
 
     public bool IsActivated()
@@ -31,5 +34,10 @@ public class AchievementProperty
         }
 
         return activated;
+    }
+
+    public void Reset()
+    {
+        Value = initialValue;
     }
 }

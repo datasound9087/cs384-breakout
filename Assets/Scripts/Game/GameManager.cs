@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     private ScoreManager scoreManager;
     private LevelManager levelManager;
+    private AchievementManager achievementManager;
     private Ball ball;
     private Paddle paddle;
     private bool gameBegun = false;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     {
         scoreManager = FindObjectOfType<ScoreManager>();
         levelManager = FindObjectOfType<LevelManager>();
+        achievementManager = FindObjectOfType<AchievementManager>();
         ball = FindObjectOfType<Ball>();
         paddle = FindObjectOfType<Paddle>();
 
@@ -113,6 +115,7 @@ public class GameManager : MonoBehaviour
         paddle.Reset();
         ball.Reset();
         levelManager.ResetLevel();
+        achievementManager.Reset();
 
         gameBegun = false;
         scoreManager.Reset();

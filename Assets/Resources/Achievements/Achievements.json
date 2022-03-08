@@ -3,7 +3,6 @@
         {
             "name": "I can play this",
             "description": "Complete the first level",
-            "persistsAcrossLevels": true,
             "properties": [
                 "Level01Complete"
             ]
@@ -11,9 +10,15 @@
         {
             "name": "Loooooserrrrr",
             "description": "Lose a game",
-            "persistsAcrossLevels": true,
             "properties": [
                 "GameOver"
+            ]
+        },
+        {
+            "name": "Look at you go!",
+            "description": "Hit your first brick",
+            "properties": [
+                "HitABrick"
             ]
         }
     ]

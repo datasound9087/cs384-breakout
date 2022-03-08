@@ -7,6 +7,5 @@ public class AchievementJSON
 {
     public string name;
     public string description;
-    public bool persistsAcrossLevels;
     public List<string> properties;
 }

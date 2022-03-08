@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
 
     private void LoadLevelFromDisk(string name)
     {
-        loadedLevel = LevelLoader.LoadLevel(name);
+        loadedLevel = LevelIO.LoadLevel(name);
         levelName = loadedLevel.name;
         levelWidth = loadedLevel.width;
         levelHeight = loadedLevel.height;

@@ -8,6 +8,7 @@ public class AchievementsMenu : MonoBehaviour
 {
     public GameObject scrollViewport;
     public GameObject achievementPrefab;
+    public Color achievedTextColour;
 
     private MenuSceneAnimator menuSceneAnimator;
 
@@ -25,7 +26,7 @@ public class AchievementsMenu : MonoBehaviour
 
     private void LoadAchievements()
     {
-        List<Achievement> achievements = AchievementLoader.LoadPropertiesAndAchievements();
+        List<Achievement> achievements = AchievementIO.LoadPropertiesAndAchievements();
         PopulateScrollView(achievements);
     }
 
@@ -38,8 +39,14 @@ public class AchievementsMenu : MonoBehaviour
             TextMeshProUGUI nameText = GetPrefabTextComponent(ach, "Name");
             TextMeshProUGUI descriptionText = GetPrefabTextComponent(ach, "Description");
 
-            nameText.SetText(achievement.Name);
-            descriptionText.SetText(achievement.Description);
+            if (achievement.Unlocked())
+            {
+                nameText.color = achievedTextColour;
+                descriptionText.color = achievedTextColour;
+            }
+
+            nameText.text = achievement.Name;
+            descriptionText.text = achievement.Description;
         }
     }
 

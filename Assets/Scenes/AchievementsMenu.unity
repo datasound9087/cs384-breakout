@@ -489,6 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollViewport: {fileID: 732293637}
   achievementPrefab: {fileID: 2191779890273336773, guid: 52a4b5c897e64924597e39dd1a4c581a, type: 3}
+  achievedTextColour: {r: 0.13683695, g: 0.7075472, b: 0.20835751, a: 1}
 --- !u!114 &295333250
 MonoBehaviour:
   m_ObjectHideFlags: 0

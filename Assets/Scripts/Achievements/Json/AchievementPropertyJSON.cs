@@ -9,4 +9,5 @@ public class AchievementPropertyJSON
     public int initialValue;
     public int activationValue;
     public string activationRule;
+    public bool persistsAcrossLevels;
 }

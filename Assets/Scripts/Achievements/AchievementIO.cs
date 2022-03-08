@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementLoader
+public class AchievementIO
 {
     public static List<Achievement> LoadPropertiesAndAchievements()
     {
@@ -31,7 +31,7 @@ public class AchievementLoader
         foreach (AchievementPropertyJSON json in jsonProperties)
         {
             ActivationRule activationRule = ParseActivationRule(json.activationRule);
-            AchievementProperty property = new AchievementProperty(json.name, json.initialValue, json.activationValue, activationRule);
+            AchievementProperty property = new AchievementProperty(json.name, json.initialValue, json.activationValue, activationRule, json.persistsAcrossLevels);
             loadedProperties.Add(property.Name, property);
         }
     }
@@ -70,7 +70,7 @@ public class AchievementLoader
     {
         foreach (AchievementJSON json in jsonAchievements)
         {
-            Achievement achievement = new Achievement(json.name, json.description, json.persistsAcrossLevels);
+            Achievement achievement = new Achievement(json.name, json.description);
             AddAchievementProperties(achievement, json.properties, properties);
             loadedAchievements.Add(achievement);
         }

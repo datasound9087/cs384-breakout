@@ -9,4 +9,5 @@ public class Profile
     public int endlessHighScore;
     public int levelsHighScore;
 
+    public List<string> achivementProperties;
 }

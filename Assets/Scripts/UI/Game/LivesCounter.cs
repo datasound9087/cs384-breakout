@@ -16,7 +16,7 @@ public class LivesCounter : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
 
         cachedLives = gameManager.GetLives();
-        GetComponent<TextMeshProUGUI>().SetText(LIVES_TEXT + cachedLives);
+        GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + cachedLives;
     }
 
     // Update is called once per frame
@@ -25,7 +25,7 @@ public class LivesCounter : MonoBehaviour
         if (gameManager.GetLives() != cachedLives)
         {
             cachedLives = gameManager.GetLives();
-            GetComponent<TextMeshProUGUI>().SetText(LIVES_TEXT + cachedLives);
+            GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + cachedLives;
         }
     }
 }

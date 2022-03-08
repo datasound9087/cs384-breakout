@@ -14,8 +14,8 @@ public class AchievementManager : MonoBehaviour
 
     public void LoadAchievements()
     {
-        achievementProperties = AchievementLoader.LoadProperties();
-        achievements = AchievementLoader.LoadAchievements(achievementProperties);
+        achievementProperties = AchievementIO.LoadProperties();
+        achievements = AchievementIO.LoadAchievements(achievementProperties);
     }
 
     public void OnLevelComplete(string levelName)
@@ -32,6 +32,28 @@ public class AchievementManager : MonoBehaviour
     {
         achievementProperties["GameOver"].Value = 1;
         CheckAchievements();
+    }
+
+    public void OnBrickHit()
+    {
+        achievementProperties["HitABrick"].Value = 1;
+        CheckAchievements();
+    }
+
+    public void OnBrickDestroy()
+    {
+        CheckAchievements();
+    }
+
+    public void Reset()
+    {
+        foreach (var property in achievementProperties)
+        {
+            if (!property.Value.PersistsAccrossLevels)
+            {
+                property.Value.Reset();
+            }
+        }
     }
 
     private void CheckAchievements()

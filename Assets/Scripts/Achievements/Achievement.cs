@@ -6,16 +6,14 @@ public class Achievement
 {
     public string Name { get; }
     public string Description { get; }
-    public bool PersistsAcrossLevels { get; }
     private bool unlocked = false;
 
     private List<AchievementProperty> properties;
 
-    public Achievement(string name, string description, bool persistsAcrossLevels)
+    public Achievement(string name, string description)
     {
         this.Name = name;
         this.Description = description;
-        this.PersistsAcrossLevels = persistsAcrossLevels;
         this.properties = new List<AchievementProperty>();
     }
 
