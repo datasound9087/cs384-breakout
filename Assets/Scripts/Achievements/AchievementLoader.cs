@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class AchievementLoader
 {
+    public static List<Achievement> LoadPropertiesAndAchievements()
+    {
+        Dictionary<string, AchievementProperty> properties = LoadProperties();
+        return LoadAchievements(properties);
+    }
     public static Dictionary<string, AchievementProperty> LoadProperties()
     {
         AchievementPropertiesJSON loadedPropertiesJSON = null;

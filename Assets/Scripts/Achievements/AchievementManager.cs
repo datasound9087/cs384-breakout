@@ -9,13 +9,9 @@ public class AchievementManager : MonoBehaviour
     void Awake()
     {
         LoadAchievements();
-
-        LevelManager levelManager = FindObjectOfType<LevelManager>();
-        levelManager.OnLevelComplete += this.OnLevelComplete;
-
-        GameManager gameManager = FindObjectOfType<GameManager>();
-        gameManager.OnGameOver += this.OnGameOver;
+        RegisterListeners();
     }
+
     public void LoadAchievements()
     {
         achievementProperties = AchievementLoader.LoadProperties();
@@ -44,5 +40,14 @@ public class AchievementManager : MonoBehaviour
         {
             achievement.Check();
         }
+    }
+
+    private void RegisterListeners()
+    {
+        LevelManager levelManager = FindObjectOfType<LevelManager>();
+        levelManager.OnLevelComplete += this.OnLevelComplete;
+
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        gameManager.OnGameOver += this.OnGameOver;
     }
 }

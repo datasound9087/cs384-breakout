@@ -19,6 +19,8 @@ TagManager:
   - RestartButton
   - QuitToMenuButton
   - PowerupProjectile
+  - AchievementDescription
+  - AchievementName
   layers:
   - Default
   - TransparentFX
