@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     // Game settings
     public GameSettings gameSettings;
-
     public event Action OnGameOver; 
     public event Action OnPause;
     public event Action OnResume;
@@ -17,9 +16,9 @@ public class GameManager : MonoBehaviour
     private ScoreManager scoreManager;
     private LevelManager levelManager;
     private AchievementManager achievementManager;
+    private BallLauncher ballLauncher;
     private Ball ball;
     private Paddle paddle;
-    private bool gameBegun = false;
     private int lives;
     private bool gamePaused = false;
 
@@ -28,6 +27,7 @@ public class GameManager : MonoBehaviour
         scoreManager = FindObjectOfType<ScoreManager>();
         levelManager = FindObjectOfType<LevelManager>();
         achievementManager = FindObjectOfType<AchievementManager>();
+        ballLauncher = FindObjectOfType<BallLauncher>();
         ball = FindObjectOfType<Ball>();
         paddle = FindObjectOfType<Paddle>();
 
@@ -40,9 +40,11 @@ public class GameManager : MonoBehaviour
         OnRestart += ball.Reset;
         OnRestart += levelManager.Restart;
         OnRestart += scoreManager.Reset;
+        OnRestart += ballLauncher.Reset;
 
         OnBallDeath += paddle.Reset;
         OnBallDeath += ball.Reset;
+        OnBallDeath += ballLauncher.Reset;
 
         levelManager.OnLevelComplete += this.LevelComplete;
 
@@ -53,33 +55,27 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameBegun && Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("escape"))
         {
-            ball.Launch();
-            gameBegun = true;
-        }
-        else
-        {
-            if (Input.GetKeyDown("escape"))
-            {
-                handlePause();
-            }
+            handlePause();
         }
     }
 
     void FixedUpdate()
     {
-        if (lives == 0)
+        if (ballLauncher.Launched())
         {
-            FreezeTime();
-            OnGameOver();
-        }
+            if (lives == 0)
+            {
+                FreezeTime();
+                OnGameOver();
+            }
 
-        if (ball.Dead)
-        {
-            lives--;
-            OnBallDeath();
-            gameBegun = false;
+            if (ball.Dead)
+            {
+                lives--;
+                OnBallDeath();
+            }
         }
     }
 
@@ -110,6 +106,7 @@ public class GameManager : MonoBehaviour
     
     public void Restart()
     {
+        Debug.Log("s");
         OnRestart();
         lives = gameSettings.startingLives;
 
@@ -120,7 +117,6 @@ public class GameManager : MonoBehaviour
             achievementManager.Reset();
         }
 
-        gameBegun = false;
         Resume();
     }
 

@@ -17,7 +17,6 @@ public class Paddle : MonoBehaviour
         startPosition = paddleBody.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         inputVelocity = Input.GetAxisRaw("Horizontal");

@@ -16,6 +16,7 @@ public class PowerupManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         gameCamera = FindObjectOfType<Camera>();
         paddle = FindObjectOfType<Paddle>();
+        gameManager.OnBallDeath += this.Reset;
 
         powerupMap = new Dictionary<string, PowerupProperty>();
         activePowerups = new List<Powerup>();
@@ -76,5 +77,10 @@ public class PowerupManager : MonoBehaviour
             case "paddleLength": return new PaddleLengthPowerup(property, paddle);
             default: return null;
         }
+    }
+
+    public void Reset()
+    {
+        activePowerups.Clear();
     }
 }

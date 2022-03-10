@@ -24,7 +24,6 @@ public class PowerupProjectile : MonoBehaviour
         if (ShouldIgnoreCollision(col))
         {
             Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), powerupCollider);
-            body.velocity = fallingVelocity;
             return;
         }
 
@@ -36,6 +35,8 @@ public class PowerupProjectile : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        body.velocity = fallingVelocity;
     }
 
     private bool ShouldIgnoreCollision(Collision2D col)

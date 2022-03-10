@@ -26,7 +26,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OnRestartButtonClicked()
     {
-        gameManager.Resume();
+        gameManager.Restart();
     }
 
     public void OnQuitToMainMenuButtonClicked()
