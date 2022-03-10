@@ -77,8 +77,8 @@ public class GameManager : MonoBehaviour
 
         if (ball.Dead)
         {
-            OnBallDeath();
             lives--;
+            OnBallDeath();
             gameBegun = false;
         }
     }

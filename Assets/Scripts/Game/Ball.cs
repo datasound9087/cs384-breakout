@@ -54,6 +54,10 @@ public class Ball : MonoBehaviour
         {
             OnBounce();
         }
+
+        // If the ball has collided on a corner it is possible that it's velocity has changed
+        // Therefore reset it to it's intended speed
+        ballBody.velocity = movementSpeed * ballBody.velocity.normalized;
     }
 
     private void followPaddlePosition()
