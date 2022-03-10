@@ -27,18 +27,21 @@ public class Brick : MonoBehaviour
     {
         if (col.gameObject.tag == "Ball")
         {
-            OnHit();
-            UpdateDurability();
-
-            if (ShouldSpawnPowerup())
+            if (!unbreakable)
             {
-                powerupSpawner.SpawnPowerupProjectileFromBrick(this, powerupInfo);
-            }
+                OnHit();
+                UpdateDurability();
 
-            if (!unbreakable && durability == DurabilityConstants.Broken)
-            {
-                OnBreak();
-                Destroy(this.gameObject);
+                if (ShouldSpawnPowerup())
+                {
+                    powerupSpawner.SpawnPowerupProjectileFromBrick(this, powerupInfo);
+                }
+
+                if (durability == DurabilityConstants.Broken)
+                {
+                    OnBreak();
+                    Destroy(this.gameObject);
+                }
             }
         }
     }
