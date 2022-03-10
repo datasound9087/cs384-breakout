@@ -19,6 +19,11 @@ public class PowerupProjectile : MonoBehaviour
         //body.velocity = Vector2.down * 2.0f;
     }
 
+    void FixedUpdate()
+    {
+        body.velocity = fallingVelocity;
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if (ShouldIgnoreCollision(col))
@@ -35,8 +40,6 @@ public class PowerupProjectile : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        body.velocity = fallingVelocity;
     }
 
     private bool ShouldIgnoreCollision(Collision2D col)

@@ -81,6 +81,10 @@ public class PowerupManager : MonoBehaviour
 
     public void Reset()
     {
+        foreach (Powerup powerup in activePowerups)
+        {
+            powerup.End();
+        }
         activePowerups.Clear();
     }
 }
