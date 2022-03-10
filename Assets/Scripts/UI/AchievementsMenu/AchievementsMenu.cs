@@ -45,7 +45,7 @@ public class AchievementsMenu : MonoBehaviour
                 descriptionText.color = achievedTextColour;
             }
 
-            nameText.text = achievement.Name;
+            nameText.text = achievement.Unlocked() ? achievement.Name + " (Achieved)": achievement.Name;
             descriptionText.text = achievement.Description;
         }
     }
