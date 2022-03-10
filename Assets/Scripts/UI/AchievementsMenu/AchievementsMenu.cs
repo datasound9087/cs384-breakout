@@ -26,7 +26,7 @@ public class AchievementsMenu : MonoBehaviour
 
     private void LoadAchievements()
     {
-        List<Achievement> achievements = AchievementIO.LoadPropertiesAndAchievements();
+        List<Achievement> achievements = AchievementIO.LoadPropertiesAndAchievements(ProfileManager.Instance.GetActiveProfile());
         PopulateScrollView(achievements);
     }
 
@@ -39,13 +39,22 @@ public class AchievementsMenu : MonoBehaviour
             TextMeshProUGUI nameText = GetPrefabTextComponent(ach, "Name");
             TextMeshProUGUI descriptionText = GetPrefabTextComponent(ach, "Description");
 
+            string achievementTitle = achievement.Name;
             if (achievement.Unlocked())
             {
                 nameText.color = achievedTextColour;
                 descriptionText.color = achievedTextColour;
+                achievementTitle += " (Achieved)"; 
+            }
+            else
+            {
+                if (achievement.HasProgress())
+                {
+                    achievementTitle += " " + achievement.ProgressAsString();
+                }
             }
 
-            nameText.text = achievement.Unlocked() ? achievement.Name + " (Achieved)": achievement.Name;
+            nameText.text = achievementTitle;
             descriptionText.text = achievement.Description;
         }
     }

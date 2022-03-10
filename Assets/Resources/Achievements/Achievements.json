@@ -20,6 +20,20 @@
             "properties": [
                 "HitABrick"
             ]
+        },
+        {
+            "name": "Hit me",
+            "description": "Hit 100 Bricks",
+            "properties": [
+                "Hit100Bricks"
+            ]
+        },
+        {
+            "name": "Destroy me",
+            "description": "Destroy 100 Bricks",
+            "properties": [
+                "Destroy100Bricks"
+            ]
         }
     ]
 }

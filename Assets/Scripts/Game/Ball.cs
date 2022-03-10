@@ -50,7 +50,10 @@ public class Ball : MonoBehaviour
             Dead = true;
         }
 
-        OnBounce();
+        if (OnBounce != null)
+        {
+            OnBounce();
+        }
     }
 
     private void followPaddlePosition()

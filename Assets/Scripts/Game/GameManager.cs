@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
         paddle = FindObjectOfType<Paddle>();
 
         lives = gameSettings.startingLives;
+
+        OnGameOver += achievementManager.Save;
+        OnGameOver += scoreManager.Save;
     }
 
     // Update is called once per frame
@@ -49,16 +52,9 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (lives == 0)
-        {
-            OnGameOver();
-            Pause();
-        }
-        
         if (lives == 0 || GameOver())
         {
             OnGameOver();
-            scoreManager.SaveScore();
             Pause();
         }
 
@@ -114,8 +110,15 @@ public class GameManager : MonoBehaviour
         lives = gameSettings.startingLives;
         paddle.Reset();
         ball.Reset();
+
+        // If level was incomplete reset non persistent achievemnts
+        if (!levelManager.LevelFinished())
+        {
+            achievementManager.Save();
+            achievementManager.Reset();
+        }
+        
         levelManager.ResetLevel();
-        achievementManager.Reset();
 
         gameBegun = false;
         scoreManager.Reset();

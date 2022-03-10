@@ -48,4 +48,32 @@ public class Achievement
             unlocked = true;
         }
     }
+
+    public bool HasProgress()
+    {
+        bool hasProgress = true;
+        foreach (var property in properties)
+        {
+            if (property.IsBoolean())
+            {
+                hasProgress = false;
+                break;
+            }
+        }
+
+        return hasProgress;
+    }
+
+    public string ProgressAsString()
+    {
+        string result = "";
+        foreach (var property in properties)
+        {
+            if (!property.IsBoolean())
+            {
+                result += "(" + property.GetProgress() + ")";
+            }
+        }
+        return result;
+    }
 }

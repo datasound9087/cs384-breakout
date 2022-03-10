@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class AchievementIO
 {
-    public static List<Achievement> LoadPropertiesAndAchievements()
+    public static List<Achievement> LoadPropertiesAndAchievements(Profile profile)
     {
-        Dictionary<string, AchievementProperty> properties = LoadProperties();
+        Dictionary<string, AchievementProperty> properties = LoadProperties(profile);
         return LoadAchievements(properties);
     }
-    public static Dictionary<string, AchievementProperty> LoadProperties()
+    public static Dictionary<string, AchievementProperty> LoadProperties(Profile profile)
     {
         AchievementPropertiesJSON loadedPropertiesJSON = null;
         // Load json level file from disk into objects
@@ -21,6 +21,12 @@ public class AchievementIO
         {
             loadedProperties = new Dictionary<string, AchievementProperty>();
             ParseProperties(loadedPropertiesJSON.achievementProperties, loadedProperties);
+        }
+
+        // If profile exists, update achievemnt properties from progress
+        if (profile != null)
+        {
+            UpdateLoadedPropertiesForProfile(profile, loadedProperties);
         }
 
         return loadedProperties;
@@ -49,6 +55,17 @@ public class AchievementIO
         }
     }
 
+    private static void UpdateLoadedPropertiesForProfile(Profile profile, Dictionary<string, AchievementProperty> loadedProperties)
+    {
+        foreach (AchievedPropertiesJSON json in profile.achivementProperties)
+        {
+            if (loadedProperties.ContainsKey(json.propertyName))
+            {
+                loadedProperties[json.propertyName].Value = json.value;
+            }
+        }
+    }
+
     public static List<Achievement> LoadAchievements(Dictionary<string, AchievementProperty> properties)
     {
         AchievementsJSON loadedAchievementsJSON = null;
@@ -72,6 +89,9 @@ public class AchievementIO
         {
             Achievement achievement = new Achievement(json.name, json.description);
             AddAchievementProperties(achievement, json.properties, properties);
+
+            // From these properties has this achievement criteria already been met
+            achievement.Check();
             loadedAchievements.Add(achievement);
         }
     }

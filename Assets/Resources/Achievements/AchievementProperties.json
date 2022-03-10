@@ -20,6 +20,20 @@
             "activationValue": 1,
             "activationRule": "=",
             "persistsAcrossLevels": true
+        },
+        {
+            "name": "Hit100Bricks",
+            "initialValue": 0,
+            "activationValue": 100,
+            "activationRule": "=",
+            "persistsAcrossLevels": true
+        },
+        {
+            "name": "Destroy100Bricks",
+            "initialValue": 0,
+            "activationValue": 100,
+            "activationRule": "=",
+            "persistsAcrossLevels": true
         }
     ]
 }

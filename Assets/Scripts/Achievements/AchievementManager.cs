@@ -14,7 +14,7 @@ public class AchievementManager : MonoBehaviour
 
     public void LoadAchievements()
     {
-        achievementProperties = AchievementIO.LoadProperties();
+        achievementProperties = AchievementIO.LoadProperties(ProfileManager.Instance.GetActiveProfile());
         achievements = AchievementIO.LoadAchievements(achievementProperties);
     }
 
@@ -24,44 +24,54 @@ public class AchievementManager : MonoBehaviour
         {
             achievementProperties["Level01Complete"].Value = 1;
         }
-        
-        CheckAchievements();
     }
 
     public void OnGameOver()
     {
         achievementProperties["GameOver"].Value = 1;
-        CheckAchievements();
     }
 
     public void OnBrickHit()
     {
         achievementProperties["HitABrick"].Value = 1;
-        CheckAchievements();
+        achievementProperties["Hit100Bricks"].Value++;
     }
 
     public void OnBrickDestroy()
     {
-        CheckAchievements();
+        achievementProperties["Destroy100Bricks"].Value++;
     }
 
     public void Reset()
     {
         foreach (var property in achievementProperties)
         {
-            if (!property.Value.PersistsAccrossLevels)
+            // Only reset if property has not yet been achieved
+            if (!property.Value.PersistsAccrossLevels && !property.Value.IsActivated())
             {
                 property.Value.Reset();
             }
         }
     }
 
-    private void CheckAchievements()
+    public void Save()
     {
-        foreach (Achievement achievement in achievements)
+        Profile profile = ProfileManager.Instance.GetActiveProfile();
+        foreach (var property in achievementProperties)
         {
-            achievement.Check();
+            if (property.Value.PersistsAccrossLevels)
+            {
+                profile.StoreAchivementProperty(property.Value);
+            }
+            else
+            {
+                if (property.Value.IsActivated())
+                {
+                    profile.StoreAchivementProperty(property.Value);
+                }
+            }
         }
+        ProfileManager.Instance.SaveProfiles();
     }
 
     private void RegisterListeners()

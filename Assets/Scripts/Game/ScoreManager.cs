@@ -44,7 +44,7 @@ public class ScoreManager : MonoBehaviour
         return highScore;
     }
 
-    public void SaveScore()
+    public void Save()
     {
         // If new highscore datat to be saved
         if (score == highScore)
