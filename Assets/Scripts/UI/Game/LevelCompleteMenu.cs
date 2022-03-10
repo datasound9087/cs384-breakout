@@ -23,35 +23,23 @@ public class LevelCompleteMenu : MonoBehaviour
         scoreManager = FindObjectOfType<ScoreManager>();
         levelManager = FindObjectOfType<LevelManager>();
         menuSceneAnimator = circleFade.GetComponent<MenuSceneAnimator>();
-    }
 
-    void Update()
-    {
-        if (gameManager.GameOver())
-        {
-            levelCompletePanel.SetActive(true);
-            UpdateText();
-        }
+        levelManager.OnLevelComplete += this.Show;
+        gameManager.OnResume += this.Hide;
     }
 
     public void OnContinueButtonClicked()
     {
-        levelManager.NextLevel();
         gameManager.NextLevel();
-        gameManager.Resume();
-        levelCompletePanel.SetActive(false);
     }
 
     public void onRestartButtonClicked()
     {
         gameManager.Restart();
-        gameManager.Resume();
-        levelCompletePanel.SetActive(false);
     }
 
     public void OnQuitToMainMenuButtonClicked()
     {
-        gameManager.Resume();
         menuSceneAnimator.TransitionToScene("MainMenu");
     }
 
@@ -59,5 +47,16 @@ public class LevelCompleteMenu : MonoBehaviour
     {
         levelCompleteScoreText.GetComponent<TextMeshProUGUI>().text = SCORE_TEXT + scoreManager.GetScore();
         levelCompleteLevelText.GetComponent<TextMeshProUGUI>().text = LEVEL_TEXT + levelManager.GetLevelName();
+    }
+
+    public void Show(string name)
+    {
+        UpdateText();
+        levelCompletePanel.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        levelCompletePanel.SetActive(false);
     }
 }

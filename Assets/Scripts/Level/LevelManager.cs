@@ -45,16 +45,6 @@ public class LevelManager : MonoBehaviour
         LoadLevel();
     }
 
-    public int GetLevelWidth()
-    {
-        return levelWidth;
-    }
-
-    public int GetLevelHeight()
-    {
-        return levelHeight;
-    }
-
     private void LoadLevelFromDisk(string name)
     {
         loadedLevel = LevelIO.LoadLevel(name);
@@ -69,15 +59,9 @@ public class LevelManager : MonoBehaviour
         return levelName;
     }
 
-    public bool LevelFinished()
+    public bool LevelComplete()
     {
-        bool levelComplete = NumBricksRemaining == 0;
-        if (levelComplete)
-        {
-            OnLevelComplete(levelName);
-        }
-
-        return levelComplete;
+        return NumBricksRemaining == 0;
     }
 
     public void ResetLevel()
@@ -89,6 +73,25 @@ public class LevelManager : MonoBehaviour
     public void BrickDestroyed()
     {
         NumBricksRemaining--;
+        if (LevelComplete())
+        {
+            OnLevelComplete(levelName);
+        }
+    }
+
+    public void Restart()
+    {
+        ResetLevel();
+    }
+
+    public int GetLevelWidth()
+    {
+        return levelWidth;
+    }
+
+    public int GetLevelHeight()
+    {
+        return levelHeight;
     }
 
     private void LoadLevel()

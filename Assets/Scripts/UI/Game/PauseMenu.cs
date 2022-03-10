@@ -14,18 +14,11 @@ public class PauseMenu : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         menuSceneAnimator = circleFade.GetComponent<MenuSceneAnimator>();
+
+        gameManager.OnPause += this.Show;
+        gameManager.OnResume += this.Hide;
     }
 
-    void Update()
-    {
-        if (!gameManager.GameOver() && gameManager.GetLives() > 0 && gameManager.GamePaused())
-        {
-            pausePanel.SetActive(true);
-        } else
-        {
-            pausePanel.SetActive(false);
-        }
-    }
     public void OnResumeButtonClicked()
     {
         gameManager.Resume();
@@ -33,13 +26,21 @@ public class PauseMenu : MonoBehaviour
 
     public void OnRestartButtonClicked()
     {
-        gameManager.Restart();
         gameManager.Resume();
     }
 
     public void OnQuitToMainMenuButtonClicked()
     {
-        gameManager.Resume(); // So that when relaunched game is unpaused
         menuSceneAnimator.TransitionToScene("MainMenu");
+    }
+
+    public void Show()
+    {
+        pausePanel.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        pausePanel.SetActive(false);
     }
 }

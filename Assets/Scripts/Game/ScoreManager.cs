@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ScoreManager : MonoBehaviour
 {
     public GameSettings gameSettings;
+
+    public event Action<int> OnScoreChanged;
+    public event Action<int> OnHighScoreChanged;
+
     private int score;
     private int highScore;
 
@@ -28,9 +33,11 @@ public class ScoreManager : MonoBehaviour
     public void IncrementScore()
     {
         score += 1;
+        OnScoreChanged(score);
         if (score > highScore)
         {
             highScore = score;
+            OnHighScoreChanged(highScore);
         }
     }
 

@@ -5,26 +5,22 @@ using TMPro;
 
 public class ScoreCounter : MonoBehaviour
 {
-    private readonly string LIVES_TEXT = "Score: ";
+    private const string SCORE_TEXT = "Score: ";
     private ScoreManager scoreManager;
-    
-    // Cache score so don't update UI every frame - text rendering is slow
-    private int cachedScore;
 
     void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
-
-        cachedScore = scoreManager.GetScore();
-        GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + cachedScore;
+        scoreManager.OnScoreChanged += this.ScoreChanged;
     }
 
-    void Update()
+    void Start()
     {
-        if (scoreManager.GetScore() != cachedScore)
-        {
-            cachedScore = scoreManager.GetScore();
-            GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + cachedScore;
-        }
+        ScoreChanged(scoreManager.GetScore());
+    }
+
+    public void ScoreChanged(int score)
+    {
+        GetComponent<TextMeshProUGUI>().text = SCORE_TEXT + score;
     }
 }

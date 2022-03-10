@@ -5,26 +5,22 @@ using TMPro;
 
 public class HighScoreCounter : MonoBehaviour
 {
-    private readonly string LIVES_TEXT = "High Score: ";
+    private const string HIGH_SCORE_TEXT = "High Score: ";
     private ScoreManager scoreManager;
-    
-    // Cache high score so don't update UI every frame - text rendering is slow
-    private int cachedHighScore;
 
     void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
-
-        cachedHighScore = scoreManager.GetHighScore();
-        GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + cachedHighScore;
+        scoreManager.OnHighScoreChanged += this.HighScoreChanged;
     }
 
-    void Update()
+    void Start()
     {
-        if (scoreManager.GetHighScore() != cachedHighScore)
-        {
-            cachedHighScore = scoreManager.GetHighScore();
-            GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + cachedHighScore;
-        }
+        HighScoreChanged(scoreManager.GetHighScore());
+    }
+
+    public void HighScoreChanged(int highScore)
+    {
+        GetComponent<TextMeshProUGUI>().text = HIGH_SCORE_TEXT + highScore;
     }
 }

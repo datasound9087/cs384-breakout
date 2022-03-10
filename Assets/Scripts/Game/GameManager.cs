@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public GameSettings gameSettings;
 
     public event Action OnGameOver; 
+    public event Action OnPause;
+    public event Action OnResume;
+    public event Action OnRestart;
+    public event Action OnBallDeath;
 
     private ScoreManager scoreManager;
     private LevelManager levelManager;
@@ -31,6 +35,19 @@ public class GameManager : MonoBehaviour
 
         OnGameOver += achievementManager.Save;
         OnGameOver += scoreManager.Save;
+
+        OnRestart += paddle.Reset;
+        OnRestart += ball.Reset;
+        OnRestart += levelManager.Restart;
+        OnRestart += scoreManager.Reset;
+
+        OnBallDeath += paddle.Reset;
+        OnBallDeath += ball.Reset;
+
+        levelManager.OnLevelComplete += this.LevelComplete;
+
+        // Make sure that time scale is 1.0 (unpaused)
+        UnFreezeTime();
     }
 
     // Update is called once per frame
@@ -52,34 +69,18 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (lives == 0 || GameOver())
+        if (lives == 0)
         {
+            FreezeTime();
             OnGameOver();
-            Pause();
         }
 
         if (ball.Dead)
         {
+            OnBallDeath();
             lives--;
-            paddle.Reset();
-            ball.Reset();
             gameBegun = false;
         }
-    }
-
-    public int GetLives()
-    {
-        return lives;
-    }
-
-    public bool GamePaused()
-    {
-        return gamePaused;
-    }
-
-    public bool GameOver()
-    {
-        return levelManager.LevelFinished();
     }
 
     private void handlePause()
@@ -95,38 +96,57 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
-        Time.timeScale = 1.0f;
+        UnFreezeTime();
         gamePaused = false;
+        OnResume();
     }
 
     public void Pause()
     {
-        Time.timeScale = 0.0f;
+        FreezeTime();
         gamePaused = true;
+        OnPause();
     }
     
     public void Restart()
     {
+        OnRestart();
         lives = gameSettings.startingLives;
-        paddle.Reset();
-        ball.Reset();
 
         // If level was incomplete reset non persistent achievemnts
-        if (!levelManager.LevelFinished())
+        if (!levelManager.LevelComplete())
         {
             achievementManager.Save();
             achievementManager.Reset();
         }
-        
-        levelManager.ResetLevel();
 
         gameBegun = false;
-        scoreManager.Reset();
+        Resume();
     }
 
     public void NextLevel()
     {
         levelManager.NextLevel();
         Restart();
+    }
+
+    public int GetLives()
+    {
+        return lives;
+    }
+
+    private void FreezeTime()
+    {
+        Time.timeScale = 0.0f;
+    }
+
+    private void UnFreezeTime()
+    {
+        Time.timeScale = 1.0f;
+    }
+
+    public void LevelComplete(string name)
+    {
+        FreezeTime();
     }
 }
