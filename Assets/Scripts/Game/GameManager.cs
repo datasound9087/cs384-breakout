@@ -63,20 +63,18 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (ballLauncher.Launched())
+        if (lives == 0)
         {
-            if (lives == 0)
-            {
-                FreezeTime();
-                OnGameOver();
-            }
-
-            if (ball.Dead)
-            {
-                lives--;
-                OnBallDeath();
-            }
+            FreezeTime();
+            OnGameOver();
         }
+
+        if (ball.Dead)
+        {
+            lives--;
+            OnBallDeath();
+        }
+        
     }
 
     private void handlePause()
@@ -106,7 +104,6 @@ public class GameManager : MonoBehaviour
     
     public void Restart()
     {
-        Debug.Log("s");
         OnRestart();
         lives = gameSettings.startingLives;
 

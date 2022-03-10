@@ -40,6 +40,10 @@ public class LevelManager : MonoBehaviour
                 LoadLevelFromDisk(loadedLevel.nextLevel);
             }
         }
+        else
+        {
+            gameSettings.endlessSettings.levelRound++;
+        }
 
         ClearLevel();
         LoadLevel();
@@ -98,6 +102,7 @@ public class LevelManager : MonoBehaviour
     {
         if (gameSettings.endlessMode)
         {
+            levelName = "" + gameSettings.endlessSettings.levelRound;
             UnityEngine.Random.InitState(gameSettings.endlessSettings.levelSeed);
             PowerupManager powerupManager = FindObjectOfType<PowerupManager>();
             brickSpawner.GenerateBricks(new EndlessSpawning(this, powerupManager));

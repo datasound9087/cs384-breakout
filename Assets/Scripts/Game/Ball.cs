@@ -6,7 +6,7 @@ using System;
 public class Ball : MonoBehaviour
 {
     public float movementSpeed = 200.0f;
-
+    public Vector2 minVelocities;
     public event Action OnBounce;
     private Rigidbody2D ballBody;
     private Vector3 startPosition;
@@ -32,14 +32,24 @@ public class Ball : MonoBehaviour
             OnBounce();
         }
 
-        // If the ball has collided on a corner it is possible that it's velocity has changed
-        // Therefore reset it to it's intended speed
-        ballBody.velocity = movementSpeed * ballBody.velocity.normalized;
+        // If the ball is moving too horizontally correct it
+        if (ballBody.velocity.y > 0.0f && ballBody.velocity.y < minVelocities.y)
+        {
+            SetSpeed(new Vector2(ballBody.velocity.x, minVelocities.y));
+        }
+        else if (ballBody.velocity.y < 0.0f & ballBody.velocity.y > -minVelocities.y)
+        {
+            SetSpeed(new Vector2(ballBody.velocity.x, -minVelocities.y));
+        }
+        else
+        {
+            SetSpeed(ballBody.velocity);
+        }
     }
 
-    public void SetDirection(Vector3 direction)
+    public void SetSpeed(Vector2 direction)
     {
-        ballBody.velocity = direction * movementSpeed;
+        ballBody.velocity = direction.normalized * movementSpeed;
     }
 
     public void Reset()

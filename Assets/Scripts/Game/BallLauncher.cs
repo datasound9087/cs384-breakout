@@ -46,7 +46,7 @@ public class BallLauncher : MonoBehaviour
 
         float angle = UnityEngine.Random.Range(startRange, endRange);
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
-        ball.SetDirection(rotation * Vector3.down);
+        ball.SetSpeed(rotation * Vector3.down);
         launched = true;
     }
 

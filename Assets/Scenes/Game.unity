@@ -506,6 +506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 6
+  minVelocities: {x: 1.5, y: 1.5}
 --- !u!212 &332768367
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -620,9 +621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1245e728d30d4ea48a7bdeb58237c1e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionChangeSpeed: 1
   launchAngleRange: 45
-  lineLength: 1
 --- !u!1 &389955947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,7 +1906,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &735497999
 Animator:
   serializedVersion: 3
@@ -2257,7 +2256,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -5.3000183}
-  m_SizeDelta: {x: 290.25, y: 50}
+  m_SizeDelta: {x: 400.66, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &904436198
 MonoBehaviour:
@@ -2325,7 +2324,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -4648,7 +4647,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 382.40002, y: -5.3000183}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2088965178
 MonoBehaviour:
