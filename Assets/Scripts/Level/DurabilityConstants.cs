@@ -1,4 +1,7 @@
 
+/*
+* Brick Durability constants.
+*/
 public class DurabilityConstants
 {
     public const int Unbreakable = -1;

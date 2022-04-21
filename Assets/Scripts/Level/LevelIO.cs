@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Load a level from json into the correct structures.
+*/
 public class LevelIO
 {
     public static Level LoadLevel(string name)
     {
         Level loadedLevel = null;
+
         // Load json level file from disk into objects
         TextAsset ob = (TextAsset)Resources.Load("Levels/" + name, typeof(TextAsset));
         loadedLevel = JsonUtility.FromJson<Level>(ob.ToString());
@@ -30,6 +34,7 @@ public class LevelIO
     {
         int numBreakableBricks = 0;
 
+        // Add up all breakable bricks in level
         numBreakableBricks += SumRow(level.levelRows.row1);
         numBreakableBricks += SumRow(level.levelRows.row2);
         numBreakableBricks += SumRow(level.levelRows.row3);
@@ -49,7 +54,7 @@ public class LevelIO
         level.numBreakableBricks = numBreakableBricks;
     }
 
-    // add row references for easier access into level data
+    // Count number of breakable bricks in a row of level data
     private static int SumRow(List<int> row)
     {
         int sum = 0;
@@ -64,6 +69,8 @@ public class LevelIO
         return sum;
     }
 
+    // Populate array of references to level rows
+    // This allows easy indexing into a level by [y][x] notation (easier to read)
     private static void AddRowReferences(Level loadedLevel)
     {
         loadedLevel.rowRefs = new List<int>[] {
@@ -87,6 +94,7 @@ public class LevelIO
 
     private static void SetIsLevelAtEndOfChain(Level loadedLevel)
     {
+        // Level at end if string empty
         loadedLevel.endOfChain = string.IsNullOrEmpty(loadedLevel.nextLevel);
     }
 }

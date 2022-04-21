@@ -2,27 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
+/*
+ * Script to manage level lifetimes throughout the game.
+*/
 public class LevelManager : MonoBehaviour
 {
     public GameSettings gameSettings;
+
+    // The top level object which holds all the bricks in the scene
     public GameObject brickArea;
     public int levelWidth;
     public int levelHeight;
 
+    // Event fired on level completion. string - completed level name
     public event Action<string> OnLevelComplete;
 
+    // Bricks remaining before level completion
     public int NumBricksRemaining { get; set; }
+
     private BrickSpawner brickSpawner;
     private string levelName;
+
+    // The loaded level Json, if applicable
     private Level loadedLevel;
 
-    void Awake()
+    private void Awake()
     {
         brickSpawner = FindObjectOfType<BrickSpawner>();
     }
 
-    public void Start()
+    private void Start()
     {
+        // Load level from disk if needed
         if (!gameSettings.endlessMode)
         {
             LoadLevelFromDisk("Level01");
@@ -33,6 +45,7 @@ public class LevelManager : MonoBehaviour
 
     public void NextLevel()
     {
+        // Load next level from disk if applicable
         if (!gameSettings.endlessMode)
         {
             if (!loadedLevel.endOfChain)
@@ -42,6 +55,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            // Increment level reached
             gameSettings.endlessSettings.levelRound++;
         }
 
@@ -51,6 +65,7 @@ public class LevelManager : MonoBehaviour
 
     private void LoadLevelFromDisk(string name)
     {
+        // Load level and get relevant metadata
         loadedLevel = LevelIO.LoadLevel(name);
         levelName = loadedLevel.name;
         levelWidth = loadedLevel.width;
@@ -70,15 +85,18 @@ public class LevelManager : MonoBehaviour
 
     public void ResetLevel()
     {
+        // Clear and reload current level
         ClearLevel();
         LoadLevel();
     }
 
+    // Callback for when a brick is destroyed in the level
     public void BrickDestroyed()
     {
         NumBricksRemaining--;
         if (LevelComplete())
         {
+            // Level complete - fire event
             OnLevelComplete(levelName);
         }
     }
@@ -107,18 +125,25 @@ public class LevelManager : MonoBehaviour
     {
         if (gameSettings.endlessMode)
         {
+            // In endless mode level name is just a number
             levelName = "" + gameSettings.endlessSettings.levelRound;
+
+            // Initialsie random gen with seed. This could mean in future level seeds could be shared as generation is repeatable.
             UnityEngine.Random.InitState(gameSettings.endlessSettings.levelSeed);
+
+            // Spawn level using random mechanics
             PowerupManager powerupManager = FindObjectOfType<PowerupManager>();
             brickSpawner.GenerateBricks(new EndlessSpawning(this, powerupManager));
         } else
         {
+            // Spawn level using level data
             brickSpawner.GenerateBricks(new LevelSpawning(loadedLevel));
         }
     }
 
     private void ClearLevel()
     {
+        // Delete all bricks from scene
         foreach (Transform brick in brickArea.GetComponent<Transform>())
         {
             GameObject.Destroy(brick.gameObject);

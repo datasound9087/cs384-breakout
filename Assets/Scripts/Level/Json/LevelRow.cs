@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Brick layout data for a level
+ * Due to Unity's Json parser, this is hardcoded by class serialisation to the 15 rows below.
+*/
 [System.Serializable]
 public class LevelRow
 {
