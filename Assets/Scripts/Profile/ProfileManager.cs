@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Singleton handing all Profile operations.
 public sealed class ProfileManager
 {
     private static ProfileManager instance = null;
 
+    // All user profiles
     private List<Profile> profiles;
+
+    // Currently selected profile to use
     private Profile curentProfile = null;
-    private const int MaxNumProfiles = 4;
 
     private ProfileManager()
     {
+        // Read all profile data
         profiles = ProfileIO.ReadProfiles();
     }
 
@@ -26,7 +30,8 @@ public sealed class ProfileManager
     }
 
     public void AddProfile(Profile profile)
-    {
+    {   
+        // Do nothing if profile already exists
         if (profiles.Contains(profile))
         {
             return;
@@ -34,11 +39,13 @@ public sealed class ProfileManager
         profiles.Add(profile);
     }
 
+    // Set profile being used by player using index
     public void SetActiveProfile(int profileIndex)
     {
         curentProfile = profiles[profileIndex];
     }
 
+    // Set active profile via reference (as long as it already exsists)
     public void SetActiveProfile(Profile profile)
     {
         if (profiles.Contains(profile))
@@ -55,6 +62,8 @@ public sealed class ProfileManager
     public void DeleteProfile(int profileIndex)
     {
         Profile profile = profiles[profileIndex];
+
+        // If profile currently in use, remove it from active selection
         if (profile == curentProfile)
         {
             curentProfile = null;
@@ -63,6 +72,7 @@ public sealed class ProfileManager
         SaveProfiles();
     }
 
+    // Return current Instance
     public static ProfileManager Instance
     {
         get
@@ -77,6 +87,7 @@ public sealed class ProfileManager
 
     public void SaveProfiles()
     {
+        // Save all profile data
         ProfileIO.SaveProfiles(profiles);
     }
 }

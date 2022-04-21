@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * The structure of an achievement property in profile JSON.
+*/
 [System.Serializable]
 public class AchievedPropertiesJSON
 {
