@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
     private Dictionary<string, AudioClip> audioMap;
     private const string MutedKey = "Muted";
 
-    void Start()
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         audioMap = new Dictionary<string, AudioClip>();
