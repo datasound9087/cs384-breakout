@@ -1,0 +1,15 @@
+The powerup Json is structured in the following way:
+{   
+    # Overall powerups key
+    "powerups": [
+
+        # Each powerup has a section like this
+        {
+            # The name of the powerup, used by the game internally
+            "name": "paddleSpeed",
+
+            # How long should it last for in whole seconds
+            "duration": 8
+        }
+    ]
+}

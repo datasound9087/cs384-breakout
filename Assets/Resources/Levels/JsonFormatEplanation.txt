@@ -1,8 +1,24 @@
+The Level Json is structured in the following way:
 {
+    # The human readable name of the level
     "name": "Tests",
-    "nextLevel": "",
+
+    # The filename of the next level (no file extension). If left empty the game assumes this is the end of the level chain.
+    "nextLevel": "NextLevel",
+
+    # The level width in bricks.
+    # This would determine the level size however Unity's built in json parser isn't built for full json parsing due to how it serialises/deserialises objects.
+    # Therefore, this is read but ignored.
     "width": 15,
+
+    # The level height in bricks. Same limitations as width above.
     "height": 15,
+
+    # The level structure. Each row must be the same length
+    # Key:
+    #   0 - Air (ignored)
+    #   -1 - Unbreakable
+    #   >= 1 - Brick of that durability
     "levelRows": {
         "row1":  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         "row2":  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -21,11 +37,21 @@
         "row15": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
 
+    # Optional - defines for a brick above what powerup is attached to it
     "powerupLocations": [
+
+        # For each brick
         {
+            # The name of the powerup to be applied (Must match the names defined in Powerups.json)
             "name": "paddleSpeed",
+
+            # The position of the brick in the above level where (0, 0) is the top left corner
             "location": [2, 12],
+
+            # Should the powerup spawn on ball hit
             "onHit": false,
+
+            # At what brick durability should the powerup be spawned
             "onDurability": 1
         }
     ]

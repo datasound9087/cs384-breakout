@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+/*
+ * Achievement UI Handler.
+*/
 public class AchievementsMenu : MonoBehaviour
 {
+    // achievemnt scroll window
     public GameObject scrollViewport;
     public GameObject achievementPrefab;
     public Color achievedTextColour;
@@ -13,13 +17,13 @@ public class AchievementsMenu : MonoBehaviour
 
     private MenuSceneAnimator menuSceneAnimator;
 
-    void Awake()
+    private void Awake()
     {
         menuSceneAnimator = GetComponent<MenuSceneAnimator>();
-
         AchievementManager achievementManager = GetComponent<AchievementManager>();
         LoadAchievements();
     }
+
     public void OnBackButtonClicked()
     {
         soundManager.PlaySound("MenuClick");
@@ -27,7 +31,8 @@ public class AchievementsMenu : MonoBehaviour
     }
 
     private void LoadAchievements()
-    {
+    {   
+        // Get achievement progress for the active profile
         List<Achievement> achievements = AchievementIO.LoadPropertiesAndAchievements(ProfileManager.Instance.GetActiveProfile());
         PopulateScrollView(achievements);
     }
@@ -36,11 +41,14 @@ public class AchievementsMenu : MonoBehaviour
     {
         foreach (Achievement achievement in achievements)
         {
+            // Initialise Prefab
             GameObject ach = Instantiate(achievementPrefab, scrollViewport.transform, false);
 
+            // Set text details
             TextMeshProUGUI nameText = GetPrefabTextComponent(ach, "Name");
             TextMeshProUGUI descriptionText = GetPrefabTextComponent(ach, "Description");
 
+            // If already unlocked, set achieved colour and append Achieved to end
             string achievementTitle = achievement.Name;
             if (achievement.Unlocked())
             {
@@ -50,6 +58,7 @@ public class AchievementsMenu : MonoBehaviour
             }
             else
             {
+                // If achievemnt has associated progress display it
                 if (achievement.HasProgress())
                 {
                     achievementTitle += " " + achievement.ProgressAsString();

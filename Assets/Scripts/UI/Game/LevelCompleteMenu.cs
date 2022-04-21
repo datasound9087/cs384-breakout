@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+/*
+ * Level Complete UI handler.
+*/
 public class LevelCompleteMenu : MonoBehaviour
 {
     public GameObject levelCompletePanel;
@@ -14,6 +17,7 @@ public class LevelCompleteMenu : MonoBehaviour
     public Button continueButton;
     public GameSettings gameSettings;
     public SoundManager soundManager;
+
     private GameManager gameManager;
     private ScoreManager scoreManager;
     private LevelManager levelManager;
@@ -21,13 +25,14 @@ public class LevelCompleteMenu : MonoBehaviour
     private const string LEVEL_TEXT = "Level: ";
     private const string SCORE_TEXT = "Score: ";
 
-    void Awake()
+    private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
         levelManager = FindObjectOfType<LevelManager>();
         menuSceneAnimator = circleFade.GetComponent<MenuSceneAnimator>();
 
+        // Show when a level is complete and hide when game starts running
         levelManager.OnLevelComplete += this.Show;
         gameManager.OnResume += this.Hide;
     }
@@ -50,6 +55,7 @@ public class LevelCompleteMenu : MonoBehaviour
         menuSceneAnimator.TransitionToScene("MainMenu");
     }
 
+    // Display relevant score and level info
     private void UpdateText()
     {
         levelCompleteScoreText.GetComponent<TextMeshProUGUI>().text = SCORE_TEXT + scoreManager.GetScore();
@@ -58,6 +64,7 @@ public class LevelCompleteMenu : MonoBehaviour
 
     public void Show(string name)
     {
+        // If at end of defined level chain disable continue button as there's no level to play next
         if (!gameSettings.endlessMode && levelManager.EndOfLevels())
         {
             continueButton.interactable = false;

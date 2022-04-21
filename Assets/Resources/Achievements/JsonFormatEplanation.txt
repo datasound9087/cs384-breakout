@@ -1,0 +1,46 @@
+The AchievementProperties Json is structured in the following way:
+{
+    # Overall key
+    "achievementProperties": [
+
+        # For each achievement property
+        {
+            # The name of the property
+            "name": "Level01Complete",
+
+            # The initial value of the property 
+            "initialValue": 0,
+
+            # At what value does this property get achieved
+            "activationValue": 1,
+
+            # What should it match against (Arithematic operators =, <, >, <=, >=)
+            "activationRule": "=",
+
+            # Should its progress persist across levels or get reset
+            "persistsAcrossLevels": true
+        },
+    ]
+}
+
+The Achievements Json is structured in the following way:
+{
+    # Overall key
+    "achievements": [
+
+        # For each achievement
+        {
+            # The human readable name for this achievement
+            "name": "I can play this",
+
+            # The description of the achievement
+            "description": "Complete the first level",
+
+            # What achievemnt properties need to be completed to unlock
+            # The names of each achievment property must match with the names defined in AchievementProperties Json
+            "properties": [
+                "Level01Complete"
+            ]
+        },
+    ]
+}

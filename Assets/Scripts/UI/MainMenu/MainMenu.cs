@@ -5,17 +5,22 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+/*
+ * Main Menu UI Handler.
+*/
 public class MainMenu : MonoBehaviour
 {
     public GameObject pressToStartText;
     public GameObject optionsPanel;
     public SoundManager soundManager;
+
     private ProfilePanel profilePanel;
     private MenuSceneAnimator menuSceneAnimator;
 
+    // Has the game started (has the user pressed space once)
     private bool started = false;
 
-    void Awake()
+    private void Awake()
     {
         menuSceneAnimator = GetComponent<MenuSceneAnimator>();
         profilePanel = GetComponent<ProfilePanel>();

@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ * Pause Menu UI handler.
+*/
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pausePanel;
     public GameObject circleFade;
     public SoundManager soundManager;
+
     private GameManager gameManager;
     private MenuSceneAnimator menuSceneAnimator;
     
-    void Awake()
+    private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         menuSceneAnimator = circleFade.GetComponent<MenuSceneAnimator>();
 
+        // Show on pause and hide on resume
         gameManager.OnPause += this.Show;
         gameManager.OnResume += this.Hide;
     }

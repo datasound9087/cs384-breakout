@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ * Play Mode Menu UI handler.
+*/
 public class PlayMenu : MonoBehaviour
 {
     public GameSettings gameSettings;
@@ -10,15 +13,15 @@ public class PlayMenu : MonoBehaviour
 
     private MenuSceneAnimator sceneAnimator;
 
-    void Awake()
+    private void Awake()
     {
         sceneAnimator = GetComponent<MenuSceneAnimator>();
     }
 
     public void OnLevelsButtonClicked()
     {
-        soundManager.PlaySound("MenuClick");
         gameSettings.endlessMode = false;
+        soundManager.PlaySound("MenuClick");
         sceneAnimator.TransitionToScene("Game");
     }
 

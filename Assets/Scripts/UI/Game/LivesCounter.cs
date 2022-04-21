@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/*
+ * Lives UI handler.
+*/
 public class LivesCounter : MonoBehaviour
 {
     private readonly string LIVES_TEXT = "Lives: ";
     private GameManager gameManager;
     
-    void Awake()
+    private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        gameManager.OnBallDeath += this.UpdateText;
+        gameManager.OnBallDeath += this.OnLivesChanged;
     }
 
-    void Start()
-    {
-        UpdateText();
+    private void Start()
+    {   
+        OnLivesChanged();
     }
     
-    public void UpdateText()
+    // Display lives
+    public void OnLivesChanged()
     {
         GetComponent<TextMeshProUGUI>().text = LIVES_TEXT + gameManager.GetLives();
     }

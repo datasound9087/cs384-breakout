@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Brick colours for each durability (defined in Unity)
+*/
 [CreateAssetMenu(menuName = "MyScriptables/BrickColours")]
 public class BrickColours : ScriptableObject
 {
@@ -12,7 +15,7 @@ public class BrickColours : ScriptableObject
     public Color durability4;
     public Color durability5;
     public Color durability6;
-
+    
     public Color GetColourForDurability(int durability)
     {
         switch (durability)

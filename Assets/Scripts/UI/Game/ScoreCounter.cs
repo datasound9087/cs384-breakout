@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/*
+ * Score UI handler.
+*/
 public class ScoreCounter : MonoBehaviour
 {
     private const string SCORE_TEXT = "Score: ";
     private ScoreManager scoreManager;
 
-    void Awake()
+    private void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
-        scoreManager.OnScoreChanged += this.ScoreChanged;
+        scoreManager.OnScoreChanged += this.OnScoreChanged;
     }
 
-    void Start()
+    private void Start()
     {
-        ScoreChanged(scoreManager.GetScore());
+        OnScoreChanged(scoreManager.GetScore());
     }
 
-    public void ScoreChanged(int score)
+    // Display score
+    public void OnScoreChanged(int score)
     {
         GetComponent<TextMeshProUGUI>().text = SCORE_TEXT + score;
     }

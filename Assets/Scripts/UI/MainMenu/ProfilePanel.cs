@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/*
+ * Profile Selection UI handler.
+*/
 public class ProfilePanel : MonoBehaviour 
 {
     public SoundManager soundManager;
@@ -28,8 +31,9 @@ public class ProfilePanel : MonoBehaviour
     private const string DefaultProfileText = "Profile ";
     private const int MaxNumberOfProfiles = 4;
 
-    void Awake()
+    private void Awake()
     {
+        // Get related UI handlers
         mainMenu = GetComponent<MainMenu>();
         profileCreationPanel = GetComponent<ProfileCreationPanel>();
     }
@@ -44,14 +48,18 @@ public class ProfilePanel : MonoBehaviour
         profilesSelectionPanel.SetActive(true);
     }
 
+    // Callback for all profile buttons - each has an index from 1 to 4
     public void OnProfileButtonClicked(int profileIndex)
     {
         soundManager.PlaySound("MenuClick");
+
+        // Create profile if it does not exist
         if (!ProfileExists(profileIndex))
         {
             ShowProfileCreationPanel();
         } else
         {
+            //set active profile based on index
             ProfileManager.Instance.SetActiveProfile(profileIndex - 1);
             if (EditProfile())
             {
@@ -59,6 +67,7 @@ public class ProfilePanel : MonoBehaviour
                 ShowProfileCreationPanel();
             } else if(DeleteProfile())
             {
+                // Delete profile and update UI
                 ProfileManager.Instance.DeleteProfile(profileIndex - 1);
                 UpdateUIForProfile(profileIndex, DefaultProfileText, "", "");
             } else
@@ -68,11 +77,13 @@ public class ProfilePanel : MonoBehaviour
         }
     }
 
+    // Edit mode if space is pressed simultaneusly
     private bool EditProfile()
     {
         return Input.GetKey("space");
     }
 
+    // Delete profile if delete is pressed simultaneusly
     private bool DeleteProfile()
     {
         return Input.GetKey("delete");
@@ -84,6 +95,8 @@ public class ProfilePanel : MonoBehaviour
         profileCreationPanel.Show();
     }
 
+    // As there can only be 4 profiles at a time, a profile can only exist if it is <= the number currently stored in ProfileManager
+    // So if profile 4 clicked on but only 3 exist, 4 > 3 so profile does not exist
     private bool ProfileExists(int profileNum)
     {
         return profileNum <= ProfileManager.Instance.ProfileCount();
@@ -91,6 +104,7 @@ public class ProfilePanel : MonoBehaviour
 
     private void PopulateProfiles()
     {
+        // No point trying to load no profiles :)
         List<Profile> profiles = ProfileManager.Instance.GetProfiles();
         if (profiles.Count == 0)
         {
@@ -98,7 +112,7 @@ public class ProfilePanel : MonoBehaviour
         }
 
         // Trick for populating profiles without loads of duplicated code
-        // make possible to reference related gameobjects via an index, then load all at once
+        // makes it possible to reference related gameobjects via an index, then load all at once
         GameObject[] profileButtons = new GameObject[] {
             profile1Button, profile2Button,
             profile3Button, profile4Button
@@ -114,6 +128,8 @@ public class ProfilePanel : MonoBehaviour
             profile3EndlessHighScoreText, profile4EndlessHighScoreText
         };
 
+        // Load each profile going left to right, top to bottom in UI
+        // This way non existent profiles fill any remaining space
         for (int i = 0; i < MaxNumberOfProfiles; i++)
         {
             if (i == profiles.Count)
@@ -126,6 +142,7 @@ public class ProfilePanel : MonoBehaviour
         }
     }
 
+    // Update UI details for a profile
     private void PopulateScoresForProfile(Profile profile, GameObject levelsText, GameObject endlessText)
     {
         levelsText.GetComponent<TextMeshProUGUI>().text = LevelsHighScoreText + profile.levelsHighScore;
@@ -135,7 +152,7 @@ public class ProfilePanel : MonoBehaviour
     private void UpdateUIForProfile(int profileIndex, string profileNameText, string levelsText, string endlessText)
     {
         // Trick for populating profiles without loads of duplicated code
-        // make possible to reference related gameobjects via an index, then load all at once
+        // makes it possible to reference related gameobjects via an index, then load all at once
         GameObject[] profileButtons = new GameObject[] {
             profile1Button, profile2Button,
             profile3Button, profile4Button

@@ -4,19 +4,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/*
+ * Options Menu UI handler.
+*/
 public class OptionsMenu : MonoBehaviour
 {
     public SoundManager soundManager;
     public Toggle soundToggle;
     private MenuSceneAnimator menuSceneAnimator;
 
-    void Awake()
+    private void Awake()
     {
         menuSceneAnimator = GetComponent<MenuSceneAnimator>();
     }
 
-    void Start()
+    private void Start()
     {
+        // Load muted information
         soundToggle.isOn = soundManager.GetMuted();
     }
 

@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+/*
+ * Game Over UI Handler.
+*/
 public class GameOverMenu : MonoBehaviour
 {
     public GameObject gameOverPanel;
@@ -17,11 +20,12 @@ public class GameOverMenu : MonoBehaviour
     private const string LEVEL_TEXT = "Level: ";
     private const string SCORE_TEXT = "Score: ";
     
-    void Awake()
+    private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         menuSceneAnimator = circleFade.GetComponent<MenuSceneAnimator>();
 
+        // Show when a Game over event is fired
         gameManager.OnGameOver += this.Show;
     }
 
@@ -31,6 +35,7 @@ public class GameOverMenu : MonoBehaviour
         menuSceneAnimator.TransitionToScene("MainMenu");
     }
 
+    // Display relevant score and level info
     private void updateText()
     {
         LevelManager levelManager = FindObjectOfType<LevelManager>();
@@ -40,7 +45,8 @@ public class GameOverMenu : MonoBehaviour
     }
 
     public void Show()
-    {
+    {   
+        // Show the game over UI
         gameOverPanel.SetActive(true);
         updateText();
     }
