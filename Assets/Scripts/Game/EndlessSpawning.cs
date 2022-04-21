@@ -6,7 +6,7 @@ public class EndlessSpawning : IBrickSpawning
 {
     private LevelManager levelManager;
     private PowerupManager powerupManager;
-    private const float BrickSpawnChance = 0.3f;
+    private const float BrickSpawnChance = 0.2f;
     private const float BrickUnbreakableChance = 0.1f;
     public EndlessSpawning(LevelManager levelManager, PowerupManager powerupManager)
     {

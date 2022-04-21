@@ -506,7 +506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 6
-  minVelocities: {x: 1.5, y: 1.5}
+  minVelocities: {x: 5, y: 5}
 --- !u!212 &332768367
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1700,6 +1700,8 @@ MonoBehaviour:
   levelCompleteScoreText: {fileID: 425151492}
   levelCompleteLevelText: {fileID: 1123724397}
   circleFade: {fileID: 735497998}
+  continueButton: {fileID: 1767463498}
+  gameSettings: {fileID: 11400000, guid: 976e380e36375d340b4dcf077376f4cf, type: 2}
   soundManager: {fileID: 817647972}
 --- !u!1 &674470394
 GameObject:

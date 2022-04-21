@@ -5,44 +5,48 @@ using UnityEngine;
 public class PowerupManager : MonoBehaviour
 {
     private GameManager gameManager;
-    private Camera gameCamera;
     private Paddle paddle;
     private Dictionary<string, PowerupProperty> powerupMap;
     private List<string> powerupKeys;
-    private List<Powerup> activePowerups;
+    private Dictionary<string, Powerup> activePowerups;
     // Start is called before the first frame update
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        gameCamera = FindObjectOfType<Camera>();
         paddle = FindObjectOfType<Paddle>();
         gameManager.OnBallDeath += this.Reset;
 
         powerupMap = new Dictionary<string, PowerupProperty>();
-        activePowerups = new List<Powerup>();
+        activePowerups = new Dictionary<string, Powerup>();
         powerupKeys = new List<string>();
         LoadPowerups();
     }
 
     void FixedUpdate()
     {
-        for (int i = activePowerups.Count - 1; i >= 0; i--)
+        Powerup powerupToRemove = null;
+        foreach (var powerup in activePowerups)
         {
-            Powerup powerup = activePowerups[i];
-            powerup.Update();
+            Powerup p = powerup.Value;
+            p.Update();
             
             float now = Time.time;
-            if (now - powerup.StartTime() > powerup.Duration)
+            if (now - p.StartTime() > p.Duration)
             {
-                powerup.End();
-                activePowerups.RemoveAt(i);
+                powerupToRemove = p;
             }
+        }
+
+        if (powerupToRemove != null)
+        {
+            powerupToRemove.End();
+            activePowerups.Remove(powerupToRemove.Name);
         }
     }
 
     public string GetRandomPowerup()
     {
-        int val = Random.Range(0, powerupKeys.Count - 1);
+        int val = Random.Range(0, powerupKeys.Count);
         string name = powerupKeys[val];
         return name;
     }
@@ -54,9 +58,19 @@ public class PowerupManager : MonoBehaviour
             return;
         }
 
-        Powerup powerup = CreatePowerupFromProperty(powerupMap[name]);
-        powerup.Begin();
-        activePowerups.Add(powerup);
+        PowerupProperty powerupProperty = powerupMap[name];
+        if (activePowerups.ContainsKey(name))
+        {
+            // Update running powerup with longer duration
+            Powerup powerup = activePowerups[name];
+            powerup.Duration += powerupProperty.duration;
+        }
+        else
+        {
+            Powerup powerup = CreatePowerupFromProperty(powerupProperty);
+            powerup.Begin();
+            activePowerups.Add(name, powerup);
+        }
     }
 
     private void LoadPowerups()
@@ -73,7 +87,7 @@ public class PowerupManager : MonoBehaviour
     {
         switch (property.name)
         {
-            case "flipScreen": return new FlipScreenPowerup(property, gameCamera);
+            case "paddleSpeed": return new PaddleSpeedPowerup(property, paddle);
             case "paddleLength": return new PaddleLengthPowerup(property, paddle);
             default: return null;
         }
@@ -81,9 +95,9 @@ public class PowerupManager : MonoBehaviour
 
     public void Reset()
     {
-        foreach (Powerup powerup in activePowerups)
+        foreach (var powerup in activePowerups)
         {
-            powerup.End();
+            powerup.Value.End();
         }
         activePowerups.Clear();
     }

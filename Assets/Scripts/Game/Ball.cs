@@ -27,18 +27,27 @@ public class Ball : MonoBehaviour
         }
 
         // If the ball is moving too horizontally correct it
+        Vector2 fixedVelocity = ballBody.velocity;
         if (ballBody.velocity.y > 0.0f && ballBody.velocity.y < minVelocities.y)
         {
-            SetSpeed(new Vector2(ballBody.velocity.x, minVelocities.y));
+            fixedVelocity.y = minVelocities.y;
         }
         else if (ballBody.velocity.y < 0.0f & ballBody.velocity.y > -minVelocities.y)
         {
-            SetSpeed(new Vector2(ballBody.velocity.x, -minVelocities.y));
+            fixedVelocity.y = -minVelocities.y;
         }
-        else
+        
+        if (ballBody.velocity.x > 0.0f && ballBody.velocity.x < minVelocities.x)
         {
-            SetSpeed(ballBody.velocity);
+            fixedVelocity.x = minVelocities.x;
         }
+        else if (ballBody.velocity.x < 0.0f & ballBody.velocity.x > -minVelocities.x)
+        {
+            fixedVelocity.x = -minVelocities.x;
+        }
+
+        SetSpeed(fixedVelocity);
+
     }
 
     public void SetSpeed(Vector2 direction)

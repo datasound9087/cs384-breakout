@@ -5,12 +5,14 @@ using UnityEngine;
 public abstract class Powerup
 {
     private PowerupProperty property;
-    public int Duration { get { return property.duration; } }
+    public int Duration { get; set; }
+    public string Name { get { return property.name; } }
     private float startTime;
     public Powerup(PowerupProperty property)
     {
         this.property = property;
         this.startTime = Time.time;
+        this.Duration = property.duration;
     }
 
     public float StartTime()

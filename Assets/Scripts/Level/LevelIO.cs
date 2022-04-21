@@ -67,21 +67,21 @@ public class LevelIO
     private static void AddRowReferences(Level loadedLevel)
     {
         loadedLevel.rowRefs = new List<int>[] {
-            loadedLevel.levelRows.row1,
-            loadedLevel.levelRows.row2,
-            loadedLevel.levelRows.row3,
-            loadedLevel.levelRows.row4,
-            loadedLevel.levelRows.row5,
-            loadedLevel.levelRows.row6,
-            loadedLevel.levelRows.row7,
-            loadedLevel.levelRows.row8,
-            loadedLevel.levelRows.row9,
-            loadedLevel.levelRows.row10,
-            loadedLevel.levelRows.row11,
-            loadedLevel.levelRows.row12,
-            loadedLevel.levelRows.row13,
+            loadedLevel.levelRows.row15,
             loadedLevel.levelRows.row14,
-            loadedLevel.levelRows.row15
+            loadedLevel.levelRows.row13,
+            loadedLevel.levelRows.row12,
+            loadedLevel.levelRows.row11,
+            loadedLevel.levelRows.row10,
+            loadedLevel.levelRows.row9,
+            loadedLevel.levelRows.row8,
+            loadedLevel.levelRows.row7,
+            loadedLevel.levelRows.row6,
+            loadedLevel.levelRows.row5,
+            loadedLevel.levelRows.row4,
+            loadedLevel.levelRows.row3,
+            loadedLevel.levelRows.row2,
+            loadedLevel.levelRows.row1
         };
     }
 

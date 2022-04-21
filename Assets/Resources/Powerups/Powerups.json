@@ -1,8 +1,8 @@
 {
     "powerups": [
         {
-            "name": "flipScreen",
-            "duration": 5
+            "name": "paddleSpeed",
+            "duration": 8
         },
         {
             "name": "paddleLength",

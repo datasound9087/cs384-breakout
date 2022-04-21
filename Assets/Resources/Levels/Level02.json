@@ -23,7 +23,7 @@
 
     "powerupLocations": [
         {
-            "name": "flipScreen",
+            "name": "paddleSpeed",
             "location": [2, 5],
             "onHit": false,
             "onDurability": 1

@@ -7,4 +7,6 @@ public class PowerupProperty
 {
     public string name;
     public int duration;
+
+    public string colour;
 }
