@@ -14,12 +14,14 @@ public class BrickSpawner : MonoBehaviour
     private LevelManager levelManager;
     private ScoreManager scoreManager;
     private AchievementManager achievementManager;
+    private SoundManager soundManager;
 
     void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
         achievementManager = FindObjectOfType<AchievementManager>();
+        soundManager = FindObjectOfType<SoundManager>();
     }
     
     /*
@@ -63,8 +65,10 @@ public class BrickSpawner : MonoBehaviour
                     go.OnBreak += levelManager.BrickDestroyed;
                     go.OnBreak += achievementManager.OnBrickDestroy;
 
-                    go.OnHit += scoreManager.IncrementScore;
-                    go.OnHit += achievementManager.OnBrickHit;
+                    go.OnDurabilityChange += scoreManager.IncrementScore;
+                    go.OnDurabilityChange += achievementManager.OnBrickHit;
+
+                    go.OnHit += () => soundManager.PlaySound("BallHit");
                     
                     spawnRules.OnBrickInitialise(x, y, go);
                 }

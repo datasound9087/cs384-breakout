@@ -10,6 +10,7 @@ public class GameOverMenu : MonoBehaviour
     public GameObject gameOverLevelText;
     public GameObject gameOverScoreText;
     public GameObject circleFade;
+    public SoundManager soundManager;
 
     private GameManager gameManager;
     private MenuSceneAnimator menuSceneAnimator;
@@ -26,6 +27,7 @@ public class GameOverMenu : MonoBehaviour
 
     public void OnQuitToMainMenuButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         menuSceneAnimator.TransitionToScene("MainMenu");
     }
 

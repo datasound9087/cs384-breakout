@@ -9,20 +9,24 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject pressToStartText;
     public GameObject optionsPanel;
+    public SoundManager soundManager;
     private ProfilePanel profilePanel;
     private MenuSceneAnimator menuSceneAnimator;
 
+    private bool started = false;
+
     void Awake()
     {
-        
         menuSceneAnimator = GetComponent<MenuSceneAnimator>();
         profilePanel = GetComponent<ProfilePanel>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (!started && Input.GetKeyDown("space"))
         {
+            started = true;
+            soundManager.PlaySound("MenuClick");
             pressToStartText.SetActive(false);
             profilePanel.LoadProfiles();
             profilePanel.Show();
@@ -31,21 +35,25 @@ public class MainMenu : MonoBehaviour
 
     public void OnPlayButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         menuSceneAnimator.TransitionToScene("PlayMenu");
     }
 
     public void OnAchievementsButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         menuSceneAnimator.TransitionToScene("AchievementsMenu");
     }
 
     public void OnOptionsButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         menuSceneAnimator.TransitionToScene("OptionsMenu");
     }
 
     public void OnQuitButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         Application.Quit();
     }
 

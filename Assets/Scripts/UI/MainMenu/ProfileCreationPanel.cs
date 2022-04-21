@@ -7,6 +7,7 @@ public class ProfileCreationPanel : MonoBehaviour
 {
     public GameObject profileCreationPanel;
     public GameObject profileCreationInputField;
+    public SoundManager soundManager;
     private MainMenu mainMenu;
     private Profile editedProfile = null;
 
@@ -39,6 +40,7 @@ public class ProfileCreationPanel : MonoBehaviour
         ProfileManager.Instance.SaveProfiles();
         ProfileManager.Instance.SetActiveProfile(profile);
 
+        soundManager.PlaySound("MenuClick");
         ReturnToMainMenu();
     }
 

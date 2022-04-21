@@ -9,6 +9,7 @@ public class AchievementsMenu : MonoBehaviour
     public GameObject scrollViewport;
     public GameObject achievementPrefab;
     public Color achievedTextColour;
+    public SoundManager soundManager;
 
     private MenuSceneAnimator menuSceneAnimator;
 
@@ -21,6 +22,7 @@ public class AchievementsMenu : MonoBehaviour
     }
     public void OnBackButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         menuSceneAnimator.TransitionToScene("MainMenu");
     }
 

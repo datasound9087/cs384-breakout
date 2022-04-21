@@ -5,6 +5,7 @@ using TMPro;
 
 public class ProfilePanel : MonoBehaviour 
 {
+    public SoundManager soundManager;
     public GameObject profilesSelectionPanel;
     public GameObject profile1Button;
     public GameObject profile1LevelsHighScoreText;
@@ -45,6 +46,7 @@ public class ProfilePanel : MonoBehaviour
 
     public void OnProfileButtonClicked(int profileIndex)
     {
+        soundManager.PlaySound("MenuClick");
         if (!ProfileExists(profileIndex))
         {
             ShowProfileCreationPanel();

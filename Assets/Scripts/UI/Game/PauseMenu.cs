@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pausePanel;
     public GameObject circleFade;
+    public SoundManager soundManager;
     private GameManager gameManager;
     private MenuSceneAnimator menuSceneAnimator;
     
@@ -21,16 +22,19 @@ public class PauseMenu : MonoBehaviour
 
     public void OnResumeButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         gameManager.Resume();
     }
 
     public void OnRestartButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         gameManager.Restart();
     }
 
     public void OnQuitToMainMenuButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         menuSceneAnimator.TransitionToScene("MainMenu");
     }
 

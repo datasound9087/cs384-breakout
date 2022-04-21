@@ -7,7 +7,6 @@ public class Ball : MonoBehaviour
 {
     public float movementSpeed = 200.0f;
     public Vector2 minVelocities;
-    public event Action OnBounce;
     private Rigidbody2D ballBody;
     private Vector3 startPosition;
     
@@ -25,11 +24,6 @@ public class Ball : MonoBehaviour
         if (col.gameObject.tag == "DeathArea")
         {
             Dead = true;
-        }
-
-        if (OnBounce != null)
-        {
-            OnBounce();
         }
 
         // If the ball is moving too horizontally correct it

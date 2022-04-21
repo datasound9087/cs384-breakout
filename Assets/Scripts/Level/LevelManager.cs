@@ -98,6 +98,11 @@ public class LevelManager : MonoBehaviour
         return levelHeight;
     }
 
+    public bool EndOfLevels()
+    {
+        return loadedLevel.endOfChain;
+    }
+
     private void LoadLevel()
     {
         if (gameSettings.endlessMode)

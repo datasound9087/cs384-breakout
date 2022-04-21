@@ -12,6 +12,7 @@ public class Brick : MonoBehaviour
     private PowerupInfo powerupInfo;
 
     public event Action OnHit;
+    public event Action OnDurabilityChange;
     public event Action OnBreak;
 
     private PowerupSpawner powerupSpawner;
@@ -25,11 +26,12 @@ public class Brick : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D col)
     {
+        OnHit();
         if (col.gameObject.tag == "Ball")
         {
             if (!unbreakable)
             {
-                OnHit();
+                OnDurabilityChange();
                 UpdateDurability();
 
                 if (ShouldSpawnPowerup())

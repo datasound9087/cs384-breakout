@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -10,6 +11,9 @@ public class LevelCompleteMenu : MonoBehaviour
     public GameObject levelCompleteScoreText;
     public GameObject levelCompleteLevelText;
     public GameObject circleFade;
+    public Button continueButton;
+    public GameSettings gameSettings;
+    public SoundManager soundManager;
     private GameManager gameManager;
     private ScoreManager scoreManager;
     private LevelManager levelManager;
@@ -30,16 +34,19 @@ public class LevelCompleteMenu : MonoBehaviour
 
     public void OnContinueButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         gameManager.NextLevel();
     }
 
     public void onRestartButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         gameManager.Restart();
     }
 
     public void OnQuitToMainMenuButtonClicked()
     {
+        soundManager.PlaySound("MenuClick");
         menuSceneAnimator.TransitionToScene("MainMenu");
     }
 
@@ -51,6 +58,11 @@ public class LevelCompleteMenu : MonoBehaviour
 
     public void Show(string name)
     {
+        if (!gameSettings.endlessMode && levelManager.EndOfLevels())
+        {
+            continueButton.interactable = false;
+        }
+
         UpdateText();
         levelCompletePanel.SetActive(true);
     }
