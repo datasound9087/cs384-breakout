@@ -1,4 +1,7 @@
 
+/*
+ * Achievement Activation values.
+*/
 public enum ActivationRule
 {
     EQUAL_TO,

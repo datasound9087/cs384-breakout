@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Load achievment properties and achievements.
+*/
 public class AchievementIO
 {
     public static List<Achievement> LoadPropertiesAndAchievements(Profile profile)
@@ -57,6 +60,7 @@ public class AchievementIO
 
     private static void UpdateLoadedPropertiesForProfile(Profile profile, Dictionary<string, AchievementProperty> loadedProperties)
     {
+        // Update each achievement property for a profile
         foreach (AchievedPropertiesJSON json in profile.achivementProperties)
         {
             if (loadedProperties.ContainsKey(json.propertyName))
@@ -106,7 +110,7 @@ public class AchievementIO
             }
 
             AchievementProperty property = properties[propertyName];
-            achievement.addProperty(property);
+            achievement.AddProperty(property);
         }
     }
 }

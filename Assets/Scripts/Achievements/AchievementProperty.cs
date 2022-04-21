@@ -2,13 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Achievement property (A thing that can be tracked about the game)
+  * An achievment can be made up of one or more properties
+*/
 public class AchievementProperty
 {
+    // Name
     public string Name { get; }
+
+    // Does this property persist across levels/player deaths
     public bool PersistsAccrossLevels { get; }
+
+    // Current value
     private int value;
+
+    // Initial Value
     private int initialValue;
+
+    // At what value does this property activate
     private int activationValue;
+
+    // Activation Rule
     private ActivationRule activationRule;
     
     public AchievementProperty(string name, int initialValue, int activationValue, ActivationRule activationRule, bool persistsAccrossLevels)
@@ -21,6 +36,7 @@ public class AchievementProperty
         this.PersistsAccrossLevels = persistsAccrossLevels;
     }
 
+    // Is property activated based on it's value and activation rule
     public bool IsActivated()
     {
         bool activated = false;
@@ -60,7 +76,8 @@ public class AchievementProperty
 
     public bool IsBoolean()
     {
-        return initialValue == 0 && activationValue == 1;
+        // Does this property only have two states
+        return initialValue == 0 && activationValue == 1 && activationRule == ActivationRule.EQUAL_TO;
     }
 
     public string GetProgress()

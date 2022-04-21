@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * Script to manage achievment progress from game.
+*/
 public class AchievementManager : MonoBehaviour
 {
+    // Loaded achievement properties and achievements
     private Dictionary<string, AchievementProperty> achievementProperties;
     private List<Achievement> achievements;
 
-    void Awake()
+    private void Awake()
     {
         LoadAchievements();
         RegisterListeners();
@@ -14,12 +19,14 @@ public class AchievementManager : MonoBehaviour
 
     public void LoadAchievements()
     {
+        // Load achievements and progress for the active profile
         achievementProperties = AchievementIO.LoadProperties(ProfileManager.Instance.GetActiveProfile());
         achievements = AchievementIO.LoadAchievements(achievementProperties);
     }
 
     public void OnLevelComplete(string levelName)
     {
+        // Level complete - update related property
         if (levelName == "Level01Complete")
         {
             achievementProperties["Level01Complete"].Value = 1;
@@ -44,6 +51,7 @@ public class AchievementManager : MonoBehaviour
 
     public void Reset()
     {
+        // Reset non-persistent achievements between games/deaths
         foreach (var property in achievementProperties)
         {
             // Only reset if property has not yet been achieved
@@ -54,6 +62,7 @@ public class AchievementManager : MonoBehaviour
         }
     }
 
+    // Save the users achievement progress to disk
     public void Save()
     {
         Profile profile = ProfileManager.Instance.GetActiveProfile();
@@ -71,11 +80,14 @@ public class AchievementManager : MonoBehaviour
                 }
             }
         }
+        
+        // Save progress to disk
         ProfileManager.Instance.SaveProfiles();
     }
 
     private void RegisterListeners()
     {
+        // Register listeners so can update achievemnt progress throughout game.
         LevelManager levelManager = FindObjectOfType<LevelManager>();
         levelManager.OnLevelComplete += this.OnLevelComplete;
 

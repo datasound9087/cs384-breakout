@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * A Game Achievemnt.
+*/
 public class Achievement
 {
     public string Name { get; }
     public string Description { get; }
     private bool unlocked = false;
 
+    // The various properties that make up this achievment
     private List<AchievementProperty> properties;
 
     public Achievement(string name, string description)
@@ -17,8 +21,7 @@ public class Achievement
         this.properties = new List<AchievementProperty>();
     }
 
-
-    public void addProperty(AchievementProperty property)
+    public void AddProperty(AchievementProperty property)
     {
         if (!properties.Contains(property))
         {
@@ -31,8 +34,10 @@ public class Achievement
         return unlocked;
     }
 
+    // Has this achievement been unlocked - has all it's related properties been activated
     public void Check()
     {
+        // Check each property
         bool achieved = true;
         foreach (AchievementProperty property in properties)
         {
@@ -49,6 +54,7 @@ public class Achievement
         }
     }
 
+    // Does this achievement have progress - does it take more than a boolean activation to complete
     public bool HasProgress()
     {
         bool hasProgress = true;
@@ -64,6 +70,7 @@ public class Achievement
         return hasProgress;
     }
 
+    // Concatenate each properties progress to a string to be displayed
     public string ProgressAsString()
     {
         string result = "";
