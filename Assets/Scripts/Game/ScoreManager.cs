@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/*
+ * Script to manage game scores.
+*/
 public class ScoreManager : MonoBehaviour
 {
     public GameSettings gameSettings;
@@ -10,11 +13,13 @@ public class ScoreManager : MonoBehaviour
     public event Action<int> OnScoreChanged;
     public event Action<int> OnHighScoreChanged;
 
+    // Users current score data
     private int score;
     private int highScore;
 
-    void Awake()
+    private void Awake()
     {
+        // Load relevant score dta for game mode
         if (gameSettings.endlessMode)
         {
             highScore = ProfileManager.Instance.GetActiveProfile().endlessHighScore;
@@ -32,6 +37,7 @@ public class ScoreManager : MonoBehaviour
 
     public void IncrementScore()
     {
+        // Update high score if applicable
         score += 1;
         OnScoreChanged(score);
         if (score > highScore)
@@ -53,7 +59,7 @@ public class ScoreManager : MonoBehaviour
 
     public void Save()
     {
-        // If new highscore datat to be saved
+        // If new highscore data to be saved, save it
         if (score == highScore)
         {
             if (gameSettings.endlessMode)

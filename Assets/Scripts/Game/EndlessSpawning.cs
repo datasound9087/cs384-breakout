@@ -2,20 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Endless mode brick generation.
+*/
 public class EndlessSpawning : IBrickSpawning
 {
     private LevelManager levelManager;
     private PowerupManager powerupManager;
+
+    // How likely are we to spawna a brick at each location (1 in 5)
     private const float BrickSpawnChance = 0.2f;
+
+    // How likely is it that a spawned brick is unbreakable (1 in 10)
     private const float BrickUnbreakableChance = 0.1f;
+
     public EndlessSpawning(LevelManager levelManager, PowerupManager powerupManager)
     {
         this.levelManager = levelManager;
         this.powerupManager = powerupManager;
     }
 
+    // Called on each brick position - should a brick be placed there
     public bool OnPlace(int x, int y)
     {
+        // Soawn brick if allowed
         float val = Random.value;
         if  (val < BrickSpawnChance)
         {
@@ -25,22 +35,26 @@ public class EndlessSpawning : IBrickSpawning
 
         return false;
     }
+
+    // Randomly initialise each bricks properties
     public void OnBrickInitialise(int x, int y, Brick brick)
     {
+        // Calculate durability
         if (Random.value < BrickUnbreakableChance)
         {
-            brick.setDurability(DurabilityConstants.Unbreakable);
+            brick.SetDurability(DurabilityConstants.Unbreakable);
         }
         else
         {
-            brick.setDurability(CalculateDurability(DurabilityConstants.Durability1));
+            brick.SetDurability(CalculateDurability(DurabilityConstants.Durability1));
         }
 
+        // Generate powerup info
         float shouldSpawnPowerup = Random.value;
         if (shouldSpawnPowerup < 0.2f)
         {
             string chosenPowerup = powerupManager.GetRandomPowerup();
-
+            
             bool shouldSpawnOnHit = Random.value > 0.5f;
             int durabilityOnHit = 0;
             if (shouldSpawnOnHit)
@@ -53,6 +67,7 @@ public class EndlessSpawning : IBrickSpawning
         }
     }
 
+    // Generate durability. Each successive increase is half as likely as the last (for balance reasons)
     private int CalculateDurability(int durability)
     {
         if (durability == DurabilityConstants.Durability6)

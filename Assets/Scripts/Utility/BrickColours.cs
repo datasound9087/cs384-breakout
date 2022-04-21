@@ -16,6 +16,7 @@ public class BrickColours : ScriptableObject
     public Color durability5;
     public Color durability6;
     
+    // Get a colour for a durability (convienience)
     public Color GetColourForDurability(int durability)
     {
         switch (durability)

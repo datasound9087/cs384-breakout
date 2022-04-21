@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/*
+ * Script to control overal game flow
+*/
 public class GameManager : MonoBehaviour
 {
     // Game settings
@@ -22,7 +25,7 @@ public class GameManager : MonoBehaviour
     private int lives;
     private bool gamePaused = false;
 
-    void Awake()
+    private void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
         levelManager = FindObjectOfType<LevelManager>();
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
 
         lives = gameSettings.startingLives;
 
+        // Subscribe various components to game events
         OnGameOver += achievementManager.Save;
         OnGameOver += scoreManager.Save;
 
@@ -48,12 +52,11 @@ public class GameManager : MonoBehaviour
 
         levelManager.OnLevelComplete += this.LevelComplete;
 
-        // Make sure that time scale is 1.0 (unpaused)
+        // Make sure that time scale is 1.0 (unpaused) otherwise game will not run
         UnFreezeTime();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown("escape"))
         {
@@ -61,24 +64,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
+        // Is game over
         if (lives == 0)
         {
             FreezeTime();
             OnGameOver();
         }
 
+        // Ball is dead, reduce lives and reset
         if (ball.Dead)
         {
             lives--;
             OnBallDeath();
         }
-        
     }
 
     private void handlePause()
     {
+        // toggle game pause
         if (!gamePaused)
         {
             Pause();
@@ -104,8 +109,9 @@ public class GameManager : MonoBehaviour
     
     public void Restart()
     {
-        OnRestart();
+        // Reset lives
         lives = gameSettings.startingLives;
+        OnRestart();
 
         // If level was incomplete reset non persistent achievemnts
         if (!levelManager.LevelComplete())
@@ -113,12 +119,14 @@ public class GameManager : MonoBehaviour
             achievementManager.Save();
             achievementManager.Reset();
         }
-
+        
+        // Resume game, can play again
         Resume();
     }
 
     public void NextLevel()
     {
+        // Generate/load next level
         levelManager.NextLevel();
         Restart();
     }
@@ -128,11 +136,13 @@ public class GameManager : MonoBehaviour
         return lives;
     }
 
+    // Pause game updates
     private void FreezeTime()
     {
         Time.timeScale = 0.0f;
     }
 
+    // Reset time scale
     private void UnFreezeTime()
     {
         Time.timeScale = 1.0f;
