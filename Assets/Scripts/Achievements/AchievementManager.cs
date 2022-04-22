@@ -27,7 +27,7 @@ public class AchievementManager : MonoBehaviour
     public void OnLevelComplete(string levelName)
     {
         // Level complete - update related property
-        if (levelName == "Level01Complete")
+        if (levelName == "Time to bounce!")
         {
             achievementProperties["Level01Complete"].Value = 1;
         }

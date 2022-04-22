@@ -19,6 +19,9 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
+        LevelManager levelManager = FindObjectOfType<LevelManager>();
+        levelManager.OnLevelComplete += this.OnLevelComplete;
+
         // Load relevant score dta for game mode
         if (gameSettings.endlessMode)
         {
@@ -27,12 +30,17 @@ public class ScoreManager : MonoBehaviour
         {
             highScore = ProfileManager.Instance.GetActiveProfile().levelsHighScore;
         }
+    }
+
+    private void Start()
+    {
         Reset();
     }
 
     public void Reset()
     {
         score = 0;
+        OnScoreChanged(score);
     }
 
     public void IncrementScore()
@@ -55,6 +63,11 @@ public class ScoreManager : MonoBehaviour
     public int GetHighScore()
     {
         return highScore;
+    }
+
+    public void OnLevelComplete(string level)
+    {
+        Save();
     }
 
     public void Save()

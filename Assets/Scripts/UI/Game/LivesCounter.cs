@@ -15,6 +15,7 @@ public class LivesCounter : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         gameManager.OnBallDeath += this.OnLivesChanged;
+        gameManager.OnRestart += this.OnLivesChanged;
     }
 
     private void Start()

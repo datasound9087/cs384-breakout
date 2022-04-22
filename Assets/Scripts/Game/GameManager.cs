@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
         lives = gameSettings.startingLives;
 
         // Subscribe various components to game events
-        OnGameOver += achievementManager.Save;
         OnGameOver += scoreManager.Save;
 
         OnRestart += paddle.Reset;
@@ -71,6 +70,7 @@ public class GameManager : MonoBehaviour
         {
             FreezeTime();
             OnGameOver();
+            achievementManager.Save();
         }
 
         // Ball is dead, reduce lives and reset
