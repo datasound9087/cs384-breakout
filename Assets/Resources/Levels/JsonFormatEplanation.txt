@@ -1,4 +1,4 @@
-The Level Json is structured in the following way:
+# The Level Json is structured in the following way:
 {
     # The human readable name of the level
     "name": "Tests",
